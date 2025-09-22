@@ -249,11 +249,18 @@ MonoBehaviour:
   controller: {fileID: 562792544}
   speed: 12
   jumpHeight: 2
+  gravity: -9.81
+  cam: {fileID: 1242783200}
+  camRunPos: {x: 0, y: 0.7, z: 0}
+  camSlidePos: {x: 0, y: -0.1, z: 0}
   groundCheck: {fileID: 1084311609}
   groundDist: 0.4
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &698310621
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,8 +433,8 @@ Transform:
   m_GameObject: {fileID: 821921693}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 12}
-  m_LocalScale: {x: 8, y: 3, z: 0.5}
+  m_LocalPosition: {x: 0, y: 2.5, z: 12}
+  m_LocalScale: {x: 8, y: 5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 743271676}
@@ -624,8 +631,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1242783197}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.65, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -687,7 +694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149bc83fe4eed004c98d624f7a60cfa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSense: 4
+  mouseSense: 2
   body: {fileID: 562792545}
 --- !u!1 &1456281775
 GameObject:
@@ -717,8 +724,8 @@ Transform:
   m_GameObject: {fileID: 1456281775}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.3420201, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: -8, y: 1.5, z: 13}
-  m_LocalScale: {x: 8, y: 3, z: 0.5}
+  m_LocalPosition: {x: -8, y: 2.5, z: 13}
+  m_LocalScale: {x: 8, y: 5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 743271676}
