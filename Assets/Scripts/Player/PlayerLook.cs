@@ -7,6 +7,7 @@ public class PlayerLook : MonoBehaviour
     float xRotation;
 
 
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -15,6 +16,8 @@ public class PlayerLook : MonoBehaviour
 
     private void Update()
     {
+        // lock x movement/rotation while sliding
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSense;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSense;
 

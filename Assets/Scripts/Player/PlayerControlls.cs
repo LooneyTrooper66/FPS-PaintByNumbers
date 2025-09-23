@@ -1,6 +1,5 @@
-using Unity.Hierarchy;
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class PlayerControlls : MonoBehaviour
 {
@@ -16,10 +15,10 @@ public class PlayerControlls : MonoBehaviour
     [Header("Camera Effects")]
 
     [SerializeField] Transform cam;
-    [SerializeField] Vector3 camRunPos;
-    [SerializeField] Quaternion camRunRotation;
-    [SerializeField] Vector3 camSlidePos;
-    [SerializeField] Quaternion camSlideRotation;
+    [SerializeField] float camRunPos;
+    [SerializeField] float camRunRotation;
+    [SerializeField] float camSlidePos;
+    [SerializeField] float camSlideRotation;
 
     [Header("GroundCheck")]
 
@@ -27,11 +26,12 @@ public class PlayerControlls : MonoBehaviour
     [SerializeField] float groundDist = 0.4f;
     [SerializeField] LayerMask groundMask;
     [SerializeField] LayerMask wallMask;
+    [SerializeField] Collider landedCheck;
 
     Vector3 velocity;
-    private MovementState moveState;
+    [HideInInspector] public MovementState moveState;
     bool isGrounded; // use 'InAir' instead when to do with things that cant be done if on the ground OR on a wall
-    bool justLanded = false; bool justDashed = false; // use to check if crouch in time to slide
+    [HideInInspector] public bool justLanded = false; bool justDashed = false; // use to check if crouch in time to slide
 
     public enum MovementState
     {
@@ -54,6 +54,8 @@ public class PlayerControlls : MonoBehaviour
         // move, dash, jump, air dash, land faster, wall slide, wall jump, slide
         Move();
         Jump();
+
+        Debug.Log(justLanded); // justDashed working
     }
 
     void Move() // move, dash, slide
@@ -64,13 +66,21 @@ public class PlayerControlls : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * speed * Time.deltaTime);
 
+        // lock to only move forward by speed when sliding
+
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
         // slide
         if (Input.GetKey(KeyCode.LeftControl) && (justLanded || justDashed))
         {
+            Debug.Log("do the slide thing");
             moveState = MovementState.Sliding;
+            speed = defaultSpeed * 2.5f;
+            landedCheck.enabled = false;
+
+            Mathf.Lerp(cam.position.y, camSlidePos, 0.2f);
+            Mathf.Lerp(cam.rotation.x, camSlideRotation, 0.2f);
             // lerp cam to -0.1, tilt x -10
             // move faster but only in forward direction of when started sliding
         }
@@ -78,15 +88,11 @@ public class PlayerControlls : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.LeftControl) && moveState == MovementState.Sliding)
         {
             moveState = MovementState.Running;
-            // lerp cam back to normal
-            // speed back to normal, 
+            speed = defaultSpeed;
+
+            Mathf.Lerp(cam.position.y, camRunPos, 0.2f);
+            Mathf.Lerp(cam.rotation.x, camRunRotation, 0.2f);
         } 
-
-
-        // landed check for slide
-        if (isGrounded && !justLanded) justLanded = true;
-        if (justLanded) StartCoroutine(LandedTimer());
-        if (justLanded && !isGrounded) { StopCoroutine(LandedTimer()); justLanded = false; }
     }
 
     void Jump() // jump, dash/air dash, land faster
@@ -102,6 +108,7 @@ public class PlayerControlls : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             moveState = MovementState.InAir;
+            landedCheck.enabled = true;
         }
 
         // ground slam ish?
@@ -114,9 +121,9 @@ public class PlayerControlls : MonoBehaviour
 
     IEnumerator DashTimer()
     {
-        speed = speed * 2;
+        speed = defaultSpeed * 3;
         justDashed = true;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         speed = defaultSpeed;
         justDashed = false;
     }
@@ -124,7 +131,7 @@ public class PlayerControlls : MonoBehaviour
     void WallControls() // wall slide, wall jump
     {
         // wall slide
-        // lock y value, tilt camera sideways depending on which side of character the wall is on
+        // lock y value, lock rotation to only be 90 degrees to wall, tilt camera sideways depending on which side of character the wall is on
 
         // wall jump
         if (moveState == MovementState.OnWall)
@@ -132,11 +139,5 @@ public class PlayerControlls : MonoBehaviour
             // only able to wall jump to break wall slide, cant walljump otherwise
 
         }
-    }
-
-    IEnumerator LandedTimer()
-    {
-        yield return new WaitForSeconds(1);
-        justLanded = false;
     }
 }
