@@ -14,12 +14,10 @@ public class GroundCheckForSlide : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
-            StartCoroutine(LandedTimer());
-            col.enabled = false;
-        }
-            
+        StopCoroutine(LandedTimer());
+
+        StartCoroutine(LandedTimer());
+        col.enabled = false;
     }
 
     IEnumerator LandedTimer()

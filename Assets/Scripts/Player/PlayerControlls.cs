@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 public class PlayerControlls : MonoBehaviour
@@ -26,14 +27,13 @@ public class PlayerControlls : MonoBehaviour
     [SerializeField] float groundDist = 0.4f;
     [SerializeField] LayerMask groundMask;
     [SerializeField] LayerMask wallMask;
-    [SerializeField] Collider landedCheck;
 
     Vector3 velocity;
     [HideInInspector] public MovementState moveState;
     bool isGrounded; // use 'InAir' instead when to do with things that cant be done if on the ground OR on a wall
     [HideInInspector] public bool justLanded = false; bool justDashed = false; // use to check if crouch in time to slide
 
-    public enum MovementState
+    public enum MovementState  // IMPORTANT: NEVER SET MOVESTATE IN UPDATE OR GETKEY
     {
         Running,
         Sliding, // cant dash while sliding
@@ -46,7 +46,6 @@ public class PlayerControlls : MonoBehaviour
     {
         defaultGravity = gravity;
         defaultSpeed = speed;
-        moveState = MovementState.Running;
     }
 
     private void Update()
@@ -54,8 +53,6 @@ public class PlayerControlls : MonoBehaviour
         // move, dash, jump, air dash, land faster, wall slide, wall jump, slide
         Move();
         Jump();
-
-        Debug.Log(justLanded); // justDashed working
     }
 
     void Move() // move, dash, slide
@@ -72,53 +69,54 @@ public class PlayerControlls : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         // slide
-        if (Input.GetKey(KeyCode.LeftControl) && (justLanded || justDashed))
+        if (Input.GetKey(KeyCode.LeftControl) && (justLanded || justDashed) && moveState != MovementState.Sliding)
         {
             Debug.Log("do the slide thing");
             moveState = MovementState.Sliding;
             speed = defaultSpeed * 2.5f;
-            landedCheck.enabled = false;
 
-            Mathf.Lerp(cam.position.y, camSlidePos, 0.2f);
-            Mathf.Lerp(cam.rotation.x, camSlideRotation, 0.2f);
+            cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, -0.1f, cam.transform.localPosition.z);
+            //Mathf.Lerp(cam.position.y, camSlidePos, 0.2f);
+            //Mathf.Lerp(cam.rotation.x, camSlideRotation, 0.2f);
             // lerp cam to -0.1, tilt x -10
             // move faster but only in forward direction of when started sliding
         }
 
         if (Input.GetKeyUp(KeyCode.LeftControl) && moveState == MovementState.Sliding)
         {
+            Debug.Log("control key up");
             moveState = MovementState.Running;
             speed = defaultSpeed;
+            cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, 0.7f, cam.transform.localPosition.z);
 
-            Mathf.Lerp(cam.position.y, camRunPos, 0.2f);
-            Mathf.Lerp(cam.rotation.x, camRunRotation, 0.2f);
+            //Mathf.Lerp(cam.position.y, camRunPos, 0.2f);
+            //Mathf.Lerp(cam.rotation.x, camRunRotation, 0.2f);
         } 
     }
 
     void Jump() // jump, dash/air dash, land faster
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDist, groundMask);
-        if (isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2;
-        }
+        if (isGrounded && velocity.y < 0) velocity.y = -2;
 
         // jump
-        if(Input.GetButtonDown("Jump") && isGrounded && moveState != MovementState.Sliding)
+        if (Input.GetButtonDown("Jump") && moveState == MovementState.Running) // chaning isGrounded to movestate running to try fix something
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             moveState = MovementState.InAir;
-            landedCheck.enabled = true;
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
+        if (!isGrounded) moveState = MovementState.InAir; 
+        if (isGrounded && moveState == MovementState.InAir) { StopCoroutine(LandedTimer()); StartCoroutine(LandedTimer()); }
 
         // ground slam ish?
-        if (Input.GetKey(KeyCode.LeftControl) && !isGrounded) { gravity *= 1.03f; }
-        else { gravity = defaultGravity; moveState = MovementState.Running; }
+        if (Input.GetKey(KeyCode.LeftControl) && !isGrounded) { gravity = -200f; }
+        else if (isGrounded) { gravity = defaultGravity; moveState = MovementState.Running; }
 
         // dash/air dash
         if (Input.GetKeyDown(KeyCode.LeftShift) && (moveState != MovementState.Sliding || moveState != MovementState.OnWall)) StartCoroutine(DashTimer());
     }
 
+    #region // checks to make the slide work + dash functionality
     IEnumerator DashTimer()
     {
         speed = defaultSpeed * 3;
@@ -127,6 +125,14 @@ public class PlayerControlls : MonoBehaviour
         speed = defaultSpeed;
         justDashed = false;
     }
+
+    IEnumerator LandedTimer()
+    {
+        justLanded = true;
+        yield return new WaitForSeconds(1);
+        justLanded = false;
+    }
+    #endregion
 
     void WallControls() // wall slide, wall jump
     {
