@@ -110,7 +110,7 @@ public class PlayerControlls : MonoBehaviour
 
         // ground slam ish?
         if (Input.GetKey(KeyCode.LeftControl) && !isGrounded) { gravity = -200f; }
-        else if (isGrounded) { gravity = defaultGravity; moveState = MovementState.Running; }
+        else if (isGrounded && moveState != MovementState.Sliding) { gravity = defaultGravity; moveState = MovementState.Running; }
 
         // dash/air dash
         if (Input.GetKeyDown(KeyCode.LeftShift) && (moveState != MovementState.Sliding || moveState != MovementState.OnWall)) StartCoroutine(DashTimer());
