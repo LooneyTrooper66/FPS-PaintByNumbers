@@ -71,9 +71,8 @@ public class PlayerControlls : MonoBehaviour
         // slide
         if (Input.GetKey(KeyCode.LeftControl) && (justLanded || justDashed) && moveState != MovementState.Sliding)
         {
-            Debug.Log("do the slide thing");
             moveState = MovementState.Sliding;
-            speed = defaultSpeed * 2.5f;
+            speed = defaultSpeed * 3f;
 
             cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, -0.1f, cam.transform.localPosition.z);
             //Mathf.Lerp(cam.position.y, camSlidePos, 0.2f);
@@ -82,9 +81,8 @@ public class PlayerControlls : MonoBehaviour
             // move faster but only in forward direction of when started sliding
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftControl) && moveState == MovementState.Sliding)
+        if ((Input.GetKeyUp(KeyCode.LeftControl) || Input.GetButtonDown("Jump")) && moveState == MovementState.Sliding)
         {
-            Debug.Log("control key up");
             moveState = MovementState.Running;
             speed = defaultSpeed;
             cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, 0.7f, cam.transform.localPosition.z);
