@@ -17,9 +17,7 @@ public class PlayerControlls : MonoBehaviour
 
     [SerializeField] Transform cam;
     [SerializeField] float camRunPos;
-    [SerializeField] float camRunRotation;
     [SerializeField] float camSlidePos;
-    [SerializeField] float camSlideRotation;
 
     [Header("GroundCheck")]
 
@@ -29,7 +27,7 @@ public class PlayerControlls : MonoBehaviour
     [SerializeField] LayerMask wallMask;
 
     Vector3 velocity;
-    [HideInInspector] public MovementState moveState;
+    public MovementState moveState;
     bool isGrounded; // use 'InAir' instead when to do with things that cant be done if on the ground OR on a wall
     [HideInInspector] public bool justLanded = false; bool justDashed = false; // use to check if crouch in time to slide
 
@@ -63,8 +61,6 @@ public class PlayerControlls : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * speed * Time.deltaTime);
 
-        // lock to only move forward by speed when sliding
-
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
@@ -75,21 +71,17 @@ public class PlayerControlls : MonoBehaviour
             speed = defaultSpeed * 3f;
 
             cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, -0.1f, cam.transform.localPosition.z);
-            //Mathf.Lerp(cam.position.y, camSlidePos, 0.2f);
-            //Mathf.Lerp(cam.rotation.x, camSlideRotation, 0.2f);
-            // lerp cam to -0.1, tilt x -10
-            // move faster but only in forward direction of when started sliding
+            //Mathf.Lerp(cam.localPosition.y, camSlidePos, 0.2f);
         }
 
-        if ((Input.GetKeyUp(KeyCode.LeftControl) || Input.GetButtonDown("Jump")) && moveState == MovementState.Sliding)
+        if ((Input.GetKeyUp(KeyCode.LeftControl)) && moveState == MovementState.Sliding)
         {
             moveState = MovementState.Running;
             speed = defaultSpeed;
-            cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, 0.7f, cam.transform.localPosition.z);
 
-            //Mathf.Lerp(cam.position.y, camRunPos, 0.2f);
-            //Mathf.Lerp(cam.rotation.x, camRunRotation, 0.2f);
-        } 
+            cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, 0.7f, cam.transform.localPosition.z);
+            //Mathf.Lerp(cam.localPosition.y, camRunPos, 0.2f);
+        }
     }
 
     void Jump() // jump, dash/air dash, land faster
@@ -98,11 +90,19 @@ public class PlayerControlls : MonoBehaviour
         if (isGrounded && velocity.y < 0) velocity.y = -2;
 
         // jump
-        if (Input.GetButtonDown("Jump") && moveState == MovementState.Running) // chaning isGrounded to movestate running to try fix something
+        if (Input.GetButtonDown("Jump") && moveState == MovementState.Running)
         {
             moveState = MovementState.InAir;
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
+        else if(Input.GetButtonDown("Jump") && moveState == MovementState.Sliding)
+        {
+            moveState = MovementState.InAir;
+            speed = defaultSpeed;
+            cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, 0.7f, cam.transform.localPosition.z);
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+
         if (!isGrounded) moveState = MovementState.InAir; 
         if (isGrounded && moveState == MovementState.InAir) { StopCoroutine(LandedTimer()); StartCoroutine(LandedTimer()); }
 
@@ -120,7 +120,7 @@ public class PlayerControlls : MonoBehaviour
         speed = defaultSpeed * 3;
         justDashed = true;
         yield return new WaitForSeconds(0.5f);
-        speed = defaultSpeed;
+        if(moveState != MovementState.Sliding) speed = defaultSpeed;
         justDashed = false;
     }
 
