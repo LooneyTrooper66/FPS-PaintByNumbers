@@ -10,7 +10,7 @@ public class BulletBehaviour : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * 20 * Time.deltaTime);
+        transform.Translate(Vector3.forward * 80 * Time.deltaTime);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -23,7 +23,7 @@ public class BulletBehaviour : MonoBehaviour
 
     IEnumerator KillBullet()
     {
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(5);
         gameObject.SetActive(false);
     }
 }

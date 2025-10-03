@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 559673632089798146}
   - component: {fileID: 1338393441857284843}
   - component: {fileID: 4163654715882566873}
+  - component: {fileID: 2665009985431606581}
   m_Layer: 8
   m_Name: Bullet
   m_TagString: Bullet
@@ -107,7 +108,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4163654715882566873
 MonoBehaviour:
@@ -121,3 +122,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1a614870c5b640429d4f781b88f2345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &2665009985431606581
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835474085034230266}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 3
