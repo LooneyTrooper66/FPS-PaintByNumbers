@@ -4,12 +4,13 @@ using UnityEngine.AI;
 public class EnemyNavigation : MonoBehaviour
 {
     NavMeshAgent agent;
-    [SerializeField] GameObject player;
+    GameObject player;
 
 
-    private void Start()
+    private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        player = GameObject.FindWithTag("Player");
     }
 
     private void FixedUpdate()

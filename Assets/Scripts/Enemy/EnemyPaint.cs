@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class EnemyPaint : MonoBehaviour
 {
-    [SerializeField] float castRadius = 3;
-    [SerializeField] GameObject paint;
-    [SerializeField] ObjectPooler poolScript;
+    float raycastLength = 3;
+    [SerializeField] GameObject paintDecal;
+    ObjectPooler poolScript;
     [SerializeField] string poolTag;
     Material thisMat;
     MeshRenderer mR;
@@ -13,6 +13,8 @@ public class EnemyPaint : MonoBehaviour
     private void Start()
     {
         thisMat = GetComponent<MeshRenderer>().material;
+        GameObject poolScriptObj = GameObject.FindWithTag("GameController");
+        poolScript = poolScriptObj.GetComponent<ObjectPooler>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -20,7 +22,7 @@ public class EnemyPaint : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             collision.gameObject.SetActive(false);
-            PaintExplode();
+            PlacePaintDecal();
             TriggerParticles();
             gameObject.SetActive(false);
         }
@@ -35,14 +37,14 @@ public class EnemyPaint : MonoBehaviour
         ps.Play();
     }
 
-    void PaintExplode()
+    void PlacePaintDecal()
     {
         RaycastHit hit;
-        Physics.Raycast(transform.position, -transform.TransformDirection(Vector3.up), out hit, castRadius);
+        Physics.Raycast(transform.position, -transform.TransformDirection(Vector3.up), out hit, raycastLength);
         if (hit.collider.gameObject.tag == "Surface")
         {
             Vector3 spawnPaint = new Vector3(transform.position.x, hit.collider.gameObject.transform.position.y + 0.01f, transform.position.z); // add 0.01 to y so stacks ontop without clipping
-            GameObject thisPaint = Instantiate(paint, spawnPaint, transform.rotation);
+            GameObject thisPaint = Instantiate(paintDecal, spawnPaint, transform.rotation); // i know this is unpotomised but id rather do this then make a pool of like 10,000 lol + this is a demo so womp womp
             mR = thisPaint.GetComponent<MeshRenderer>();
             mR.material.color = thisMat.color;
         }
