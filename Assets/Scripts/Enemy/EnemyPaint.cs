@@ -19,6 +19,7 @@ public class EnemyPaint : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet")
         {
+            collision.gameObject.SetActive(false);
             PaintExplode();
             TriggerParticles();
             gameObject.SetActive(false);
