@@ -4,16 +4,15 @@ public class EnemyPaint : MonoBehaviour
 {
     [SerializeField] float castRadius = 3;
     [SerializeField] GameObject paint;
+    [SerializeField] ObjectPooler poolScript;
+    [SerializeField] string poolTag;
     Material thisMat;
     MeshRenderer mR;
-    ParticleSystem pS;
 
 
     private void Start()
     {
         thisMat = GetComponent<MeshRenderer>().material;
-        pS = GetComponent<ParticleSystem>();
-
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -21,16 +20,22 @@ public class EnemyPaint : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             PaintExplode();
-            // particles 
+            TriggerParticles();
             gameObject.SetActive(false);
         }
     }
 
+    void TriggerParticles()
+    {
+        GameObject pS = poolScript.SpawnFromPool(poolTag, transform.position, transform.rotation);
+        ParticleSystem ps = pS.GetComponent<ParticleSystem>();
+        var main = ps.main;
+        main.startColor = thisMat.color;
+        ps.Play();
+    }
+
     void PaintExplode()
     {
-        // spherecast and check how much of it intersected with anything tagged 'surface'
-        // use that size to determine where will turn red
-
         RaycastHit hit;
         Physics.Raycast(transform.position, -transform.TransformDirection(Vector3.up), out hit, castRadius);
         if (hit.collider.gameObject.tag == "Surface")
