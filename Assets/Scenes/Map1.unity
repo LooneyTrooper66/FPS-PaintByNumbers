@@ -1734,7 +1734,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1118572808}
   - component: {fileID: 1118572811}
-  - component: {fileID: 1118572810}
   - component: {fileID: 1118572809}
   m_Layer: 0
   m_Name: TopDownCam
@@ -1802,14 +1801,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &1118572810
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1118572807}
-  m_Enabled: 1
 --- !u!20 &1118572811
 Camera:
   m_ObjectHideFlags: 0
