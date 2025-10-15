@@ -11,7 +11,7 @@ public class EnemySpawners : MonoBehaviour
         public Color colour;
     }
     float distFromPlayer;
-    public float minDistForSpawn = 30f;
+    public float minDistForSpawn = 50f;
     GameObject player;
 
     [Header("Pooling Reqs")]
