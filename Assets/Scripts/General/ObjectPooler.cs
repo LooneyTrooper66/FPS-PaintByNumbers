@@ -55,4 +55,45 @@ public class ObjectPooler : MonoBehaviour
 
         return objToSpawn;
     }
+
+    public GameObject SpawnFromPoolIfInnactive(string tag, Vector3 position, Quaternion rotation)
+    {
+        // checks if the dictionary i want to take from exists
+        if (!poolDictionary.ContainsKey(tag))
+        {
+            Debug.LogWarning("pool with tag " + tag + " doesnt exist");
+            return null;
+        }
+
+        // if gameobject is innactive, set it to nextAvailableGO and break for loop
+        // it its active, requeue it and check the next one
+        GameObject nextAvailableGO = null;
+        for (int i = 0; i < poolDictionary[tag].Count;)
+        {
+            GameObject nextObj = poolDictionary[tag].Dequeue();
+
+            if (nextObj.activeSelf == false)
+            {
+                nextAvailableGO = nextObj;
+                break;
+            }
+            else
+            {
+                poolDictionary[tag].Enqueue(nextObj);
+                i++;
+                if (i > poolDictionary[tag].Count) i = 0;
+                Debug.Log(poolDictionary[tag].Count.ToString() + i.ToString());
+            }
+        }
+
+        GameObject objToSpawn = nextAvailableGO;
+
+        objToSpawn.transform.position = position;
+        objToSpawn.transform.rotation = rotation;
+        objToSpawn.SetActive(true);
+
+        poolDictionary[tag].Enqueue(objToSpawn);
+
+        return objToSpawn;
+    }
 }

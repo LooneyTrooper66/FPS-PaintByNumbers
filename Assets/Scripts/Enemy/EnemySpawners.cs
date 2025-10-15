@@ -10,6 +10,9 @@ public class EnemySpawners : MonoBehaviour
         public int colourNum;
         public Color colour;
     }
+    float distFromPlayer;
+    public float minDistForSpawn = 30f;
+    GameObject player;
 
     [Header("Pooling Reqs")]
     [SerializeField] ObjectPooler poolScript;
@@ -17,27 +20,35 @@ public class EnemySpawners : MonoBehaviour
 
     [Header("Enemy Types")]
     public List<EnemyType> enemyTypes;
-    float timeBetweenSpawns = 1.5f;
+    float timeBetweenSpawns = 2.5f;
     float timer = 0;
 
 
+    private void Start()
+    {
+        player = GameObject.FindWithTag("Player");
+    }
+
     private void FixedUpdate()
     {
-        // spawn enemies in intervals of a few seconds, stop when no more left innactive in pool and start again as soon as a new one becomes active
-        //if (poolScript has innactive gameobjects in it)
-        timer += Time.deltaTime;
-
-        if (timer >= timeBetweenSpawns)
+        // only activate spawning if this specific spawner is close enough to the player
+        distFromPlayer = Vector3.Distance(player.transform.position, transform.position);
+        Debug.Log(distFromPlayer);
+        if (distFromPlayer <= minDistForSpawn)
         {
-            timer = 0;
-            int num = Random.Range(0, enemyTypes.Count);
-            SpawnEnemy(num);
+            timer += Time.deltaTime;
+            if (timer >= timeBetweenSpawns)
+            {
+                timer = 0;
+                int num = Random.Range(0, enemyTypes.Count);
+                SpawnEnemy(num);
+            }
         }
     }
 
     void SpawnEnemy(int num)
     {
-        GameObject newEnemy = poolScript.SpawnFromPool(poolTag, transform.position, transform.rotation);
+        GameObject newEnemy = poolScript.SpawnFromPoolIfInnactive(poolTag, transform.position, transform.rotation);
         Material eM = newEnemy.GetComponent<MeshRenderer>().material;
         eM.color = enemyTypes[num].colour;
         TMP_Text text = newEnemy.GetComponentInChildren<TMP_Text>();

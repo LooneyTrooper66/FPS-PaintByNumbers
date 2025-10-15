@@ -810,13 +810,16 @@ MonoBehaviour:
   pools:
   - tag: Bullet
     prefab: {fileID: 1835474085034230266, guid: e9b4e75f0f239e5478247f8a06d24a0a, type: 3}
-    size: 30
+    size: 15
   - tag: Particles
     prefab: {fileID: 7417194256374533994, guid: 80be8032b02fc134eaf2719d492f387b, type: 3}
     size: 15
   - tag: Enemy
     prefab: {fileID: 8206007003141806534, guid: c5bd1f7723d86ea42bc290ee7e71333c, type: 3}
-    size: 40
+    size: 50
+  - tag: EnemyTestPool
+    prefab: {fileID: 8206007003141806534, guid: c5bd1f7723d86ea42bc290ee7e71333c, type: 3}
+    size: 5
 --- !u!1 &382383222
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,7 +846,7 @@ Transform:
   m_GameObject: {fileID: 382383222}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -61.2, y: 3, z: 54.4}
+  m_LocalPosition: {x: 0, y: 3, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -861,8 +864,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minDistForSpawn: 30
   poolScript: {fileID: 336171871}
-  poolTag: Enemy
+  poolTag: EnemyTestPool
   enemyTypes:
   - colourNum: 1
     colour: {r: 1, g: 0, b: 0, a: 1}
@@ -892,7 +896,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &458244353
 Transform:
   m_ObjectHideFlags: 0
@@ -920,6 +924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minDistForSpawn: 30
   poolScript: {fileID: 336171871}
   poolTag: Enemy
   enemyTypes:
@@ -1976,7 +1981,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1195577587
 Transform:
   m_ObjectHideFlags: 0
@@ -2004,6 +2009,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minDistForSpawn: 30
   poolScript: {fileID: 336171871}
   poolTag: Enemy
   enemyTypes:
@@ -2480,7 +2486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1501096024
 Transform:
   m_ObjectHideFlags: 0
@@ -2508,6 +2514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minDistForSpawn: 30
   poolScript: {fileID: 336171871}
   poolTag: Enemy
   enemyTypes:
@@ -2683,7 +2690,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1829485982
 Transform:
   m_ObjectHideFlags: 0
@@ -2711,6 +2718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minDistForSpawn: 30
   poolScript: {fileID: 336171871}
   poolTag: Enemy
   enemyTypes:
