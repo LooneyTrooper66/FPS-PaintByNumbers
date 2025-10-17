@@ -6,8 +6,7 @@ public class EnemyPaint : MonoBehaviour
     [SerializeField] GameObject paintDecal;
     ObjectPooler poolScript;
     [SerializeField] string poolTag;
-    //[HideInInspector] 
-    public int colourNum = 1;
+    [HideInInspector] public int colourNum = 1;
     Material thisMat;
     MeshRenderer mR;
 
