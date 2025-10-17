@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1858301852807408748}
   - component: {fileID: 1799835080987357275}
   - component: {fileID: 6445164815499809208}
+  - component: {fileID: 2014784089016940871}
   m_Layer: 4
   m_Name: paint
   m_TagString: Surface
@@ -29,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -106,5 +107,18 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6, y: 0.1, z: 6}
-  m_Center: {x: 0, y: -0.05, z: 0}
+  m_Size: {x: 6, y: 0.2, z: 6}
+  m_Center: {x: 0, y: -0.1, z: 0}
+--- !u!114 &2014784089016940871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6222644359048192109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 598d552e6931ea1498fb33ea43b4d057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colourNum: 0
