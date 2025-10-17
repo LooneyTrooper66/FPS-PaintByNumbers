@@ -33,7 +33,7 @@ public class EnemySpawners : MonoBehaviour
     {
         // only activate spawning if this specific spawner is close enough to the player
         distFromPlayer = Vector3.Distance(player.transform.position, transform.position);
-        Debug.Log(distFromPlayer);
+        //Debug.Log(distFromPlayer);
         if (distFromPlayer <= minDistForSpawn)
         {
             timer += Time.deltaTime;
