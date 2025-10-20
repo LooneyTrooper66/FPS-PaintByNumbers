@@ -54,6 +54,6 @@ public class EnemySpawners : MonoBehaviour
         TMP_Text text = newEnemy.GetComponentInChildren<TMP_Text>();
         text.text = enemyTypes[num].colourNum.ToString();
         EnemyPaint eP = newEnemy.GetComponent<EnemyPaint>();
-        eP.colourNum = num;
+        eP.colourNum = enemyTypes[num].colourNum;
     }
 }
