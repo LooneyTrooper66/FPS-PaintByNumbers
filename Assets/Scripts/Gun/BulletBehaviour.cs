@@ -3,14 +3,27 @@ using System.Collections;
 
 public class BulletBehaviour : MonoBehaviour
 {
+    public Vector3 targetPos;
+
+
     private void OnEnable()
     {
         StartCoroutine(KillBullet());
+        targetPos = Vector3.zero;
+    }
+
+    public void SetTarget(Vector3 pos)
+    {
+        targetPos = pos;
     }
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * 80 * Time.deltaTime);
+        if (targetPos != Vector3.zero)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, 80 * Time.deltaTime);
+        }
+        else transform.Translate(Vector3.forward * 80 * Time.deltaTime);
     }
 
     private void OnCollisionEnter(Collision collision)

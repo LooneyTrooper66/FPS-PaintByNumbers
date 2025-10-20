@@ -82,7 +82,7 @@ public class ObjectPooler : MonoBehaviour
                 poolDictionary[tag].Enqueue(nextObj);
                 i++;
                 if (i > poolDictionary[tag].Count) i = 0;
-                Debug.Log(poolDictionary[tag].Count.ToString() + i.ToString());
+                //Debug.Log(poolDictionary[tag].Count.ToString() + i.ToString());
             }
         }
 
