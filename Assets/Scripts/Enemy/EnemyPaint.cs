@@ -9,6 +9,11 @@ public class EnemyPaint : MonoBehaviour
     [HideInInspector] public int colourNum = 1;
     Material thisMat;
     MeshRenderer mR;
+    GameObject player;
+    float explodeTimer = 0;
+    MeshRenderer explodeShell;
+    Color notExplode = new Color(255, 255, 255, 0);
+    Color yesExplode = new Color(255, 255, 255, 225);
 
 
     private void Start()
@@ -16,7 +21,11 @@ public class EnemyPaint : MonoBehaviour
         thisMat = GetComponent<MeshRenderer>().material;
         GameObject poolScriptObj = GameObject.FindWithTag("GameController");
         poolScript = poolScriptObj.GetComponent<ObjectPooler>();
+        player = GameObject.FindWithTag("Player");
+        explodeShell = GetComponentInChildren<MeshRenderer>();
     }
+
+    private void OnEnable() { explodeTimer = 0; explodeShell.enabled = false; }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -27,6 +36,32 @@ public class EnemyPaint : MonoBehaviour
             TriggerParticles();
             gameObject.SetActive(false);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if (Vector3.Distance(transform.position, player.transform.position) <= 5) explodeTimer += Time.deltaTime;
+        else if (Vector3.Distance(transform.position, player.transform.position) > 5 && explodeTimer <= 0) explodeTimer -= Time.deltaTime;
+
+        if (explodeTimer >= 0)
+        {
+            float lerp = Mathf.PingPong(Time.deltaTime, 1) / explodeTimer;
+            explodeShell.material.color = Color.Lerp(notExplode, yesExplode, lerp);
+        }
+        else
+        {
+            explodeShell.enabled = false;
+            explodeShell.material.color = notExplode;
+        }
+
+        if (explodeTimer >= 5) Explode();
+    }
+
+    void Explode()
+    {
+        PlacePaintDecal();
+        TriggerParticles();
+        gameObject.SetActive(false);
     }
 
     void TriggerParticles()
