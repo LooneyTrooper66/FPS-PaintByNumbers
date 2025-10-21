@@ -15,10 +15,10 @@ public class GroundCheck : MonoBehaviour
             GroundNum num = hit.collider.gameObject.GetComponent<GroundNum>();
             if(num != null)
             {
-                if (num.colourNum == 0) roomNum.text = "-";
-                else roomNum.text = num.colourNum.ToString();
+                if (num.colourNum == 0) roomNum.text = "Current Room: -";
+                else roomNum.text = $"Current Room: {num.colourNum}";
             }
-            else roomNum.text = "-";
+            else roomNum.text = "Current Room: -";
         }
     }
 }

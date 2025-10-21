@@ -49,6 +49,7 @@ public class EnemySpawners : MonoBehaviour
     void SpawnEnemy(int num)
     {
         GameObject newEnemy = poolScript.SpawnFromPoolIfInnactive(poolTag, transform.position, transform.rotation);
+        if (newEnemy == null) return;
         Material eM = newEnemy.GetComponent<MeshRenderer>().material;
         eM.color = enemyTypes[num].colour;
         TMP_Text text = newEnemy.GetComponentInChildren<TMP_Text>();

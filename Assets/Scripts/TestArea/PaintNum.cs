@@ -19,11 +19,12 @@ public class PaintNum : MonoBehaviour
     // check the num of the plane its intersecting with, then return to the master script
     private void Start()
     {
-        pcc.numPaint++;
         RaycastHit hit;
         if (Physics.Raycast(raycastStartPoint, -Vector3.up, out hit, 5, mask))
         {
             GroundNum num = hit.collider.gameObject.GetComponent<GroundNum>();
+            if (num.colourNum == 0) return;
+            pcc.numPaint++;
             if (num.colourNum == paintNum)
             {
                 pcc.numCorrect++;

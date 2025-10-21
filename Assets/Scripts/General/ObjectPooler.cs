@@ -81,12 +81,13 @@ public class ObjectPooler : MonoBehaviour
             {
                 poolDictionary[tag].Enqueue(nextObj);
                 i++;
-                if (i > poolDictionary[tag].Count) i = 0;
+                if (i > poolDictionary[tag].Count) nextAvailableGO = null;
                 //Debug.Log(poolDictionary[tag].Count.ToString() + i.ToString());
             }
         }
 
         GameObject objToSpawn = nextAvailableGO;
+        if (objToSpawn == null) return objToSpawn;
 
         objToSpawn.transform.position = position;
         objToSpawn.transform.rotation = rotation;

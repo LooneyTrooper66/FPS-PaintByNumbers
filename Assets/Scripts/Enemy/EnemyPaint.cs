@@ -44,7 +44,7 @@ public class EnemyPaint : MonoBehaviour
         Physics.Raycast(transform.position, -transform.TransformDirection(Vector3.up), out hit, raycastLength);
         if (hit.collider.gameObject.tag == "Surface")
         {
-            Vector3 spawnPaint = new Vector3(transform.position.x, hit.collider.gameObject.transform.position.y + 0.005f, transform.position.z); // add 0.01 to y so stacks ontop without clipping
+            Vector3 spawnPaint = new Vector3(transform.position.x, hit.collider.gameObject.transform.position.y + 0.001f, transform.position.z); // add 0.01 to y so stacks ontop without clipping
             GameObject thisPaint = Instantiate(paintDecal, spawnPaint, transform.rotation); // i know this is unpotomised but id rather do this then make a pool of like 10,000 lol + this is a demo so womp womp
             PaintNum pN = thisPaint.GetComponent<PaintNum>();
             pN.paintNum = colourNum;

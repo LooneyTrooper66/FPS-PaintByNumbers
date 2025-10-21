@@ -5,6 +5,7 @@ public class PlayerLook : MonoBehaviour
     [SerializeField] float mouseSense = 1f;
     [SerializeField] Transform body;
     float xRotation;
+    public RoundTimer timer;
 
 
 
@@ -18,13 +19,16 @@ public class PlayerLook : MonoBehaviour
     {
         // lock x movement/rotation while sliding
 
-        float mouseX = Input.GetAxis("Mouse X") * mouseSense;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSense;
+        if(timer.gamePlaying)
+        {
+            float mouseX = Input.GetAxis("Mouse X") * mouseSense;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSense;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-        body.Rotate(Vector3.up * mouseX);
+            transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+            body.Rotate(Vector3.up * mouseX);
+        }
     }
 }
