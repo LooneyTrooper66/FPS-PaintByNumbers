@@ -255,7 +255,7 @@ MonoBehaviour:
   shootPoint: {fileID: 89230043}
   bulletMask:
     serializedVersion: 2
-    m_Bits: 981
+    m_Bits: 965
 --- !u!1 &275708855
 GameObject:
   m_ObjectHideFlags: 0

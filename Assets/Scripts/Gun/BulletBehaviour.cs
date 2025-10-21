@@ -21,9 +21,9 @@ public class BulletBehaviour : MonoBehaviour
     {
         if (targetPos != Vector3.zero)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, 80 * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, 50 * Time.deltaTime);
         }
-        else transform.Translate(Vector3.forward * 80 * Time.deltaTime);
+        else transform.Translate(Vector3.forward * 50 * Time.deltaTime);
     }
 
     private void OnCollisionEnter(Collision collision)
