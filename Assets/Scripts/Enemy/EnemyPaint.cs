@@ -22,10 +22,15 @@ public class EnemyPaint : MonoBehaviour
         GameObject poolScriptObj = GameObject.FindWithTag("GameController");
         poolScript = poolScriptObj.GetComponent<ObjectPooler>();
         player = GameObject.FindWithTag("Player");
-        explodeShell = GetComponentInChildren<MeshRenderer>();
+        explodeShell = gameObject.GetComponentInChildren<MeshRenderer>();
     }
 
-    private void OnEnable() { explodeTimer = 0; explodeShell.enabled = false; }
+    private void OnEnable() 
+    { 
+        explodeTimer = 0;
+        if (explodeShell == null) Debug.Log("not exists");
+        //explodeShell.enabled = false; 
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
