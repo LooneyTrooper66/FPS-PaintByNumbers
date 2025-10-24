@@ -12,8 +12,9 @@ public class EnemyPaint : MonoBehaviour
     GameObject player;
     float explodeTimer = 0;
     MeshRenderer explodeShell;
-    Color notExplode = new Color(255, 255, 255, 0);
-    Color yesExplode = new Color(255, 255, 255, 225);
+    Color halfWhite = new Vector4(1, 1, 1, 0.5f);
+    float timeBeforeExplode = 3.5f;
+    float distToStartTimer = 10;
 
 
     private void Start()
@@ -22,14 +23,13 @@ public class EnemyPaint : MonoBehaviour
         GameObject poolScriptObj = GameObject.FindWithTag("GameController");
         poolScript = poolScriptObj.GetComponent<ObjectPooler>();
         player = GameObject.FindWithTag("Player");
-        explodeShell = gameObject.GetComponentInChildren<MeshRenderer>();
+        Transform child = gameObject.transform.GetChild(0);
+        explodeShell = child.GetComponent<MeshRenderer>();
     }
 
     private void OnEnable() 
     { 
         explodeTimer = 0;
-        if (explodeShell == null) Debug.Log("not exists");
-        //explodeShell.enabled = false; 
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -37,7 +37,7 @@ public class EnemyPaint : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             collision.gameObject.SetActive(false);
-            PlacePaintDecal();
+            PlacePaintDecal(1);
             TriggerParticles();
             gameObject.SetActive(false);
         }
@@ -45,26 +45,28 @@ public class EnemyPaint : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) <= 5) explodeTimer += Time.deltaTime;
-        else if (Vector3.Distance(transform.position, player.transform.position) > 5 && explodeTimer <= 0) explodeTimer -= Time.deltaTime;
-
+        // timer for when player gets within distance
         if (explodeTimer >= 0)
         {
-            float lerp = Mathf.PingPong(Time.deltaTime, 1) / explodeTimer;
-            explodeShell.material.color = Color.Lerp(notExplode, yesExplode, lerp);
+            if (Vector3.Distance(transform.position, player.transform.position) <= distToStartTimer) explodeTimer += Time.deltaTime;
+            else explodeTimer -= Time.deltaTime * 2;
         }
-        else
-        {
-            explodeShell.enabled = false;
-            explodeShell.material.color = notExplode;
-        }
+        else explodeTimer = 0;
 
-        if (explodeTimer >= 5) Explode();
+        // lerp colour, speed of lerp scaled by the timer
+        if (explodeTimer > 0)
+        {
+            float lerp = Mathf.PingPong(explodeTimer * explodeTimer * 1.2f, 1);
+            explodeShell.material.color = Color.Lerp(Color.clear, halfWhite, lerp);
+        }
+        else explodeShell.material.color = Color.clear;
+
+        if (explodeTimer >= timeBeforeExplode) Explode(1.5f); // scale of paint bigger if explode instead of shot
     }
 
-    void Explode()
+    void Explode(float scaleMultiplier)
     {
-        PlacePaintDecal();
+        PlacePaintDecal(scaleMultiplier);
         TriggerParticles();
         gameObject.SetActive(false);
     }
@@ -78,7 +80,7 @@ public class EnemyPaint : MonoBehaviour
         ps.Play();
     }
 
-    void PlacePaintDecal()
+    void PlacePaintDecal(float scaleMultiplier)
     {
         RaycastHit hit;
         Physics.Raycast(transform.position, -transform.TransformDirection(Vector3.up), out hit, raycastLength);
@@ -86,6 +88,7 @@ public class EnemyPaint : MonoBehaviour
         {
             Vector3 spawnPaint = new Vector3(transform.position.x, hit.collider.gameObject.transform.position.y + 0.001f, transform.position.z); // add 0.01 to y so stacks ontop without clipping
             GameObject thisPaint = Instantiate(paintDecal, spawnPaint, transform.rotation); // i know this is unpotomised but id rather do this then make a pool of like 10,000 lol + this is a demo so womp womp
+            thisPaint.transform.localScale = thisPaint.transform.localScale * scaleMultiplier;
             PaintNum pN = thisPaint.GetComponent<PaintNum>();
             pN.paintNum = colourNum;
             mR = thisPaint.GetComponent<MeshRenderer>();

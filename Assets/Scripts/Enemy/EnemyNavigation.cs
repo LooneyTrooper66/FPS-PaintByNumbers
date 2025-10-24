@@ -15,6 +15,6 @@ public class EnemyNavigation : MonoBehaviour
 
     private void FixedUpdate()
     {
-        agent.SetDestination(player.transform.position);
+        agent.destination = player.transform.position;
     }
 }
