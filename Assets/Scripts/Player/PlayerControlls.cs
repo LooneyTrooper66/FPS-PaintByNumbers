@@ -48,11 +48,11 @@ public class PlayerControlls : MonoBehaviour
     private void Update()
     {
         // move, dash, jump, air dash, land faster, wall slide, wall jump, slide
-        Move();
-        Jump();
+        GroundMovement();
+        AirMovement();
     }
 
-    void Move() // move, dash, slide
+    void GroundMovement() // move, dash, slide
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -83,7 +83,7 @@ public class PlayerControlls : MonoBehaviour
         }
     }
 
-    void Jump() // jump, dash/air dash, land faster
+    void AirMovement() // jump, dash/air dash, land faster
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDist, groundMask);
         if (isGrounded && velocity.y < 0) velocity.y = -2;
@@ -130,17 +130,4 @@ public class PlayerControlls : MonoBehaviour
         justLanded = false;
     }
     #endregion
-
-    void WallControls() // wall slide, wall jump
-    {
-        // wall slide
-        // lock y value, lock rotation to only be 90 degrees to wall, tilt camera sideways depending on which side of character the wall is on
-
-        // wall jump
-        if (moveState == MovementState.OnWall)
-        {
-            // only able to wall jump to break wall slide, cant walljump otherwise
-
-        }
-    }
 }
