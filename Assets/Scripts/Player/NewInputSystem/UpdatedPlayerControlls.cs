@@ -37,19 +37,23 @@ public class UpdatedPlayerControlls : MonoBehaviour
         // Handle Drag
         if (isGrounded) rb.linearDamping = groundDrag;
         else rb.linearDamping = 0;
+
+        // Player Input
+        PlayerInput();
     }
 
-    private void FixedUpdate()
+    private void FixedUpdate() => MovePlayer();
+
+    void PlayerInput()
     {
-        MovePlayer();
+        moveDirection = movement.ReadValue<Vector2>();
+        moveDirection = transform.forward * moveDirection.y + transform.right * moveDirection.x;
     }
 
     void MovePlayer()
     {
-        moveDirection = movement.ReadValue<Vector2>();
-        moveDirection = transform.forward * moveDirection.y + transform.right * moveDirection.x;
-        rb.linearVelocity += new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
-        //rb.AddForce(moveDirection.normalized * moveSpeed * 10, ForceMode.Force);
+        //rb.linearVelocity += new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
+        rb.AddForce(moveDirection.normalized * moveSpeed * 10, ForceMode.Force);
     }
 
     void LimitVelocity()
