@@ -15,7 +15,7 @@ public class PlayerLook : MonoBehaviour
         Cursor.visible = false;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         // lock x movement/rotation while sliding
 

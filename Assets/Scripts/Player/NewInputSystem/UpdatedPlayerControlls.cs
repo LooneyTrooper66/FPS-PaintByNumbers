@@ -29,6 +29,7 @@ public class UpdatedPlayerControlls : MonoBehaviour
 
     private void Update()
     {
+        // Player Movement
         LimitVelocity();
 
         // Ground Check
@@ -37,23 +38,15 @@ public class UpdatedPlayerControlls : MonoBehaviour
         // Handle Drag
         if (isGrounded) rb.linearDamping = groundDrag;
         else rb.linearDamping = 0;
-
-        // Player Input
-        PlayerInput();
     }
 
     private void FixedUpdate() => MovePlayer();
 
-    void PlayerInput()
+    void MovePlayer()
     {
         moveDirection = movement.ReadValue<Vector2>();
         moveDirection = transform.forward * moveDirection.y + transform.right * moveDirection.x;
-    }
-
-    void MovePlayer()
-    {
-        //rb.linearVelocity += new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
-        rb.AddForce(moveDirection.normalized * moveSpeed * 10, ForceMode.Force);
+        rb.linearVelocity += new Vector3(moveDirection.x,0, moveDirection.z);       
     }
 
     void LimitVelocity()
