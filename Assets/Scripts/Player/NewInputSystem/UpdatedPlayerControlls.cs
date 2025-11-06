@@ -8,8 +8,13 @@ public class UpdatedPlayerControlls : MonoBehaviour
     [Header("Movement")]
     [SerializeField] float moveSpeed;
     [SerializeField] float groundDrag;
+   // [SerializeField] InputActions inputActs;
     [SerializeField] InputAction movement;
     Vector3 moveDirection;
+
+    [SerializeField] InputAction jump;
+    [SerializeField] float jumpForce;
+    [SerializeField] float airMultiplier;
 
     [Header("Ground Check")]
     float playerHeight = 0.7f;
@@ -23,13 +28,14 @@ public class UpdatedPlayerControlls : MonoBehaviour
     }
 
     #region // Enable Disable InputAction
-    private void OnEnable() => movement.Enable();
+    private void OnEnable() { movement.Enable(); }//jump += Jump; }
     private void OnDisable() => movement.Disable();
     #endregion
 
     private void Update()
     {
         // Player Movement
+        PlayerInput();
         LimitVelocity();
 
         // Ground Check
@@ -40,14 +46,18 @@ public class UpdatedPlayerControlls : MonoBehaviour
         else rb.linearDamping = 0;
     }
 
-    private void FixedUpdate() => MovePlayer();
-
-    void MovePlayer()
+    void PlayerInput()
     {
+        // walk/run
         moveDirection = movement.ReadValue<Vector2>();
         moveDirection = transform.forward * moveDirection.y + transform.right * moveDirection.x;
-        rb.linearVelocity += new Vector3(moveDirection.x,0, moveDirection.z);       
+
+        // jump
+        if (Input.GetKey(KeyCode.Space) && isGrounded) Jump(); // not using new input system here as 
     }
+
+    private void FixedUpdate() => MovePlayer();
+    void MovePlayer() => rb.linearVelocity += new Vector3(moveDirection.x, 0, moveDirection.z);
 
     void LimitVelocity()
     {
@@ -57,5 +67,11 @@ public class UpdatedPlayerControlls : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
         }
+    }
+
+    void Jump()
+    {
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 }
