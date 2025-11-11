@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Particles
   - Counter
+  - Magnetised
   layers:
   - Default
   - TransparentFX
