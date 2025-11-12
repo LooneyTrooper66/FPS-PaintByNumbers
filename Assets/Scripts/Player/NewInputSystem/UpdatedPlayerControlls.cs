@@ -6,19 +6,27 @@ public class UpdatedPlayerControlls : MonoBehaviour
     Rigidbody rb;
 
     [Header("Ground Movement")]
-    [SerializeField] float walkSpeed = 30;
-    [SerializeField] float dashSpeed = 50;
+    [SerializeField] float runSpeed = 30;
+    [SerializeField] float slideSpeed = 40;
     float moveSpeed;
     InputSystem_Actions inputActs;
     Vector3 moveDirection;
-
-    float dashForce = 10;
+    [Space]
+    [SerializeField] float dashForce = 20;
     bool canDash = true;
-    float dashCooldown = 2;
+    bool justDashed = false;
+    float dashCooldown = 1;
+    [Space]
+    [SerializeField] float slideForce = 20;
+    [SerializeField] GameObject playerHead;
+    bool slideBeingHeld = false;
+    bool canSlide = false;
+    bool isSliding = false;
+    float maxSlideTime;
+    float slideTimer;
+    float startYHeight = 0.7f;
+    float slideYHeight = 0.2f;
 
-    bool canSlide;
-    bool isSliding;
-    
     [Header("Air Movement")]
     [SerializeField] float jumpForce = 15;
     bool spaceBeingHeld;
@@ -27,17 +35,18 @@ public class UpdatedPlayerControlls : MonoBehaviour
     float normalGrav = -9.81f;
     float jumpGrav = -4.5f;
     float gravLerpSpeed = 15;
+    bool justLanded;
 
     [Header("Ground Check")]
     [SerializeField] LayerMask groundMask;
-    float playerHeight = 1.2f;
+    float playerHeight = 1.1f;
     bool isGrounded;
-
+    [Space]
     public MoveState state;
     public enum MoveState
     {
-        walkRun, 
-        sliding,
+        run, 
+        slide,
         air
     }
 
@@ -52,9 +61,8 @@ public class UpdatedPlayerControlls : MonoBehaviour
 
         // not subscribing Move to PlayerInput function for movement as makes it very slow and
         // doesnt update move direction based on direction facing
-        inputActs.Player.Move.performed += ctx => SetStateWalkRun();
-        inputActs.Player.Slide.performed += ctx => SetSlideState();
-        inputActs.Player.Slide.canceled += ctx => SetStateWalkRun();
+        inputActs.Player.Slide.performed += ctx => SlideHeld();
+        inputActs.Player.Slide.canceled += ctx => SlideReleased();
         inputActs.Player.Jump.performed += ctx => Jump();
         inputActs.Player.Jump.canceled += ctx => EndJump();
         inputActs.Player.Dash.performed += ctx => CheckCanDash();
@@ -67,28 +75,41 @@ public class UpdatedPlayerControlls : MonoBehaviour
         // Player Movement
         PlayerInput();
         JumpPhysics();
+        SetStates();
 
         // Ground Check
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight, groundMask);
-        if (!isGrounded && state != MoveState.air) state = MoveState.air;
+        if (justDashed || justLanded || state == MoveState.air) canSlide = true; else canSlide = false;
     }
-
-    #region // set states
-    void SetStateWalkRun() => state = MoveState.walkRun;
-    void SetSlideState() => state = MoveState.sliding;
-    #endregion
-
     void PlayerInput()
     {
-        // walk/run
+        // set speed
+        if (state == MoveState.slide && moveSpeed != slideSpeed) moveSpeed = slideSpeed;
+        else if (state != MoveState.slide && moveSpeed != runSpeed) moveSpeed = runSpeed;
+
+        // run
         moveDirection = inputActs.Player.Move.ReadValue<Vector2>();
         moveDirection = transform.forward * moveDirection.y + transform.right * moveDirection.x;
 
         // slide
-
+        if (slideBeingHeld) Slide();
+        else SetStateRun();
     }
 
-    #region // walk/run
+    #region // set states
+    void SetStates()
+    {
+        if (!isGrounded && state != MoveState.air) state = MoveState.air;
+        else if (isGrounded && isSliding && state != MoveState.slide) { state = MoveState.slide; justLanded = true; Invoke(nameof(ResetJustLanded), 1); }
+        else if (isGrounded && state == MoveState.air) { state = MoveState.run; justLanded = true; Invoke(nameof(ResetJustLanded), 1); }
+    }
+    void SetStateRun() { state = MoveState.run; playerHead.transform.localPosition = new Vector3(0, startYHeight, 0); isSliding = false; }
+    void ResetJustLanded() => justLanded = false;
+    void SlideHeld() => slideBeingHeld = true;
+    void SlideReleased() => slideBeingHeld = false;
+    #endregion
+
+    #region // run
     private void FixedUpdate() => MovePlayer();
     void MovePlayer() { rb.linearVelocity += new Vector3(moveDirection.x, 0, moveDirection.z); LimitVelocity(); }
     void LimitVelocity()
@@ -105,14 +126,35 @@ public class UpdatedPlayerControlls : MonoBehaviour
     #region // dash
     void CheckCanDash()
     {
-        if (state == MoveState.sliding) return; // cant dash if already sliding
+        if (state == MoveState.slide || canDash == false) return; // cant dash if already sliding, cant dash if cooldown not over
         canDash = false;
-        canSlide = true;
+        justDashed = true;
         rb.AddForce(transform.forward * dashForce, ForceMode.Impulse);
 
+        Invoke(nameof(ResetJustDashed), 1);
         Invoke(nameof(ResetDashBool), dashCooldown);
     }
+    void ResetJustDashed() => justDashed = false;
     void ResetDashBool() => canDash = true; 
+    #endregion
+
+    #region // slide
+    void Slide()
+    {
+        if (canSlide) isSliding = Physics.Raycast(transform.position, Vector3.down, 3, groundMask);
+
+        if (isSliding)
+        {
+            if (!isGrounded) rb.AddForce(-transform.up * 15);
+            else if (isGrounded && justLanded) 
+            { 
+                state = MoveState.slide;
+                justLanded = false;
+                playerHead.transform.localPosition = new Vector3(0, slideYHeight, 0);
+            }
+            else rb.AddForce(moveDirection.normalized * slideForce);
+        }
+    }
     #endregion
 
     #region // variable jump

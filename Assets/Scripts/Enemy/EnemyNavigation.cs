@@ -16,5 +16,6 @@ public class EnemyNavigation : MonoBehaviour
     private void FixedUpdate()
     {
         agent.destination = player.transform.position;
+        if (Vector3.Distance(transform.position, player.transform.position) >= 40) gameObject.SetActive(false);
     }
 }

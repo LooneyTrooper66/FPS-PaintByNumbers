@@ -16,7 +16,7 @@ public class ShootScript : MonoBehaviour
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100f, bulletMask))
             {
                 GameObject bullet = poolScript.SpawnFromPool(poolTag, shootPoint.position, shootPoint.rotation);
-                bullet.GetComponent<BulletBehaviour>().SetTarget(hit.point, hit.collider.gameObject.tag);
+                bullet.GetComponent<BulletBehaviour>().SetTarget(hit.collider.gameObject, hit.point, hit.collider.gameObject.tag);
             }
             else poolScript.SpawnFromPool(poolTag, shootPoint.position, shootPoint.rotation);
         }
