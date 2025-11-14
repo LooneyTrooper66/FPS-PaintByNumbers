@@ -141,7 +141,7 @@ public class UpdatedPlayerControlls : MonoBehaviour
     #region // slide
     void Slide()
     {
-        if (canSlide) isSliding = Physics.Raycast(transform.position, Vector3.down, 3, groundMask);
+        if (canSlide) isSliding = Physics.Raycast(transform.position, Vector3.down, 5, groundMask);
 
         if (isSliding)
         {

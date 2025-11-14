@@ -32,17 +32,6 @@ public class EnemyPaint : MonoBehaviour
         explodeTimer = 0;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Bullet")
-        {
-            collision.gameObject.SetActive(false);
-            PlacePaintDecal(1);
-            TriggerParticles();
-            gameObject.SetActive(false);
-        }
-    }
-
     private void FixedUpdate()
     {
         // timer for when player gets within distance
@@ -64,7 +53,7 @@ public class EnemyPaint : MonoBehaviour
         if (explodeTimer >= timeBeforeExplode) Explode(1.5f); // scale of paint bigger if explode instead of shot
     }
 
-    void Explode(float scaleMultiplier)
+    public void Explode(float scaleMultiplier)
     {
         PlacePaintDecal(scaleMultiplier);
         TriggerParticles();
