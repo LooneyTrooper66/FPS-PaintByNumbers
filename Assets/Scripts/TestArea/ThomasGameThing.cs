@@ -8,15 +8,17 @@ public class ThomasGameThing : MonoBehaviour
 
     Camera cam;
 
-    private GameObject target;
-    private Rigidbody targetRig;
+    GameObject target;
+    Rigidbody targetRig;
     public float StrengthOfAttraction = 10;
-    public float snapDist = 0.2f;
+    public float snapDist = 0.1f;
 
-    public float weaponRange = 12f;
+    public float weaponRange = 10f;
+    // make sure the raycast wont hit the player
+    public LayerMask mask; 
 
-    private bool isAttracting;
-    private bool isLaunching;
+    bool isAttracting;
+    bool isLaunching;
 
 
     void Start() => cam = Camera.main;
@@ -25,15 +27,14 @@ public class ThomasGameThing : MonoBehaviour
     {
         //Attract Input, Attract with LMB
         if (Input.GetButtonDown("Fire1"))
-            isAttracting = !isAttracting;
+        {
+            isAttracting = !isAttracting; isLaunching = false; 
+        }
 
         //Throw With RMB
         if (isAttracting)
         {
-            if (Input.GetButtonDown("Fire2"))
-            {
-                isLaunching = true; isAttracting = false;
-            }
+            if (Input.GetButtonDown("Fire2") && target != null) Throw(); 
         }
     }
 
@@ -41,31 +42,26 @@ public class ThomasGameThing : MonoBehaviour
     {
         if (isAttracting)
             Attract();
-        else if (!isAttracting)
+        else if (!isAttracting && target != null)
             Release();
-
-        if (isLaunching)
-            Throw();
     }
 
     //Attraction Code
-
     private void Attract()
     {
-        RaycastHit hit;
-
         if (isLaunching) return;
 
         if (target == null)
         {
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, weaponRange))
+            RaycastHit hit;
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, weaponRange, mask))
             {
                 if (hit.transform.tag == "Magnetised")
                 {
                     target = hit.transform.gameObject;
                     targetRig = target.GetComponent<Rigidbody>();
-                    target.transform.position = Vector3.MoveTowards(target.transform.position, floatPoint.position, 0.3f);
                     targetRig.useGravity = false;
+                    target.transform.position = Vector3.MoveTowards(target.transform.position, floatPoint.position, 0.3f);
                 }
                 else isAttracting = false;
             }
@@ -73,9 +69,9 @@ public class ThomasGameThing : MonoBehaviour
         }
         else
         {
-            Vector3 offset = transform.position - target.transform.position;
+            Vector3 offset = floatPoint.transform.position - target.transform.position;
 
-            if (Vector3.Distance(target.transform.position, transform.position) < snapDist) transform.position = target.transform.position;
+            if (Vector3.Distance(target.transform.position, floatPoint.transform.position) < snapDist) targetRig.linearVelocity = Vector3.zero; //target.transform.position = floatPoint.transform.position;
             else targetRig.linearVelocity = new Vector3((StrengthOfAttraction * offset.normalized.x) * targetRig.mass, (StrengthOfAttraction * offset.normalized.y) * targetRig.mass, (StrengthOfAttraction * offset.normalized.z) * targetRig.mass);
         }
     }
@@ -83,22 +79,22 @@ public class ThomasGameThing : MonoBehaviour
     //Release Code
     private void Release()
     {
-        if (target != null)
-        {
-            targetRig.useGravity = true;
-            target = null;
-        }
+        targetRig.linearVelocity = Vector3.zero;
+        targetRig.useGravity = true;
+        target = null;
     }
 
     //Throw Code
     private void Throw()
     {
-        if (targetRig != null)
+        if (target != null)
         {
             targetRig.useGravity = true;
+            targetRig.linearVelocity = Vector3.zero;
             targetRig.AddForce(floatPoint.transform.forward * launchSpeed, ForceMode.Impulse);
             target = null;
-            isLaunching = false;
+            isLaunching = false; isAttracting = false;
         }
+        else { isLaunching = false; isAttracting = true; }
     }
 }
