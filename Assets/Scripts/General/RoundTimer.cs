@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class RoundTimer : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class RoundTimer : MonoBehaviour
         gamePlaying = true;
     }
 
+    IEnumerator GameCountdown()
+    {
+        yield return null;
+    }
+
     private void Update()
     {
         // pause 
@@ -30,6 +36,10 @@ public class RoundTimer : MonoBehaviour
         {
             timeLeft -= Time.deltaTime;
             UpdateTimer();
+            if (timeLeft <= 0)
+            {
+                gamePlaying = false;
+            }
         }
     }
 
