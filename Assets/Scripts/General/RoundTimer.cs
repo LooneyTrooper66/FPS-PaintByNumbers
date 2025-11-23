@@ -5,7 +5,10 @@ using System.Collections;
 public class RoundTimer : MonoBehaviour
 {
     public TMP_Text timerText;
+    public GameObject beforeStart;
+    public GameObject roundStart;
     public GameObject pauseMenu;
+    public GameObject mainUI;
     public float roundLengthInSeconds;
     float timeLeft;
     public bool gamePlaying;
@@ -13,14 +16,24 @@ public class RoundTimer : MonoBehaviour
 
     private void Start()
     {
-        timeLeft = roundLengthInSeconds;
+        Cursor.lockState = CursorLockMode.Confined;
+        beforeStart.SetActive(true);
+        roundStart.SetActive(false);
         pauseMenu.SetActive(false);
-        gamePlaying = true;
+        mainUI.SetActive(false);
+        gamePlaying = false;
     }
 
+    public void StartButton() => StartCoroutine(GameCountdown());
     IEnumerator GameCountdown()
     {
-        yield return null;
+        Cursor.lockState = CursorLockMode.Locked;
+        roundStart.SetActive(true);
+        yield return new WaitForSecondsRealtime(3.3f);
+        timeLeft = roundLengthInSeconds;
+        roundStart.SetActive(false);
+        mainUI.SetActive(true);
+        gamePlaying = true;
     }
 
     private void Update()

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ShootScript : MonoBehaviour
 {
+    public RoundTimer timer;
     public ObjectPooler poolScript;
     public string poolTag;
     public Transform shootPoint;
@@ -10,7 +11,7 @@ public class ShootScript : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        if(Input.GetKeyDown(KeyCode.Mouse0) && timer.gamePlaying)
         {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100f, bulletMask))

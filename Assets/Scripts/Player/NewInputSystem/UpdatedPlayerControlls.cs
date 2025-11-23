@@ -22,8 +22,8 @@ public class UpdatedPlayerControlls : MonoBehaviour
     bool slideBeingHeld = false;
     bool canSlide = false;
     bool isSliding = false;
-    float maxSlideTime;
-    float slideTimer;
+    float maxSlideTime = 3;
+    float slideTimer = 0;
     float startYHeight = 0.7f;
     float slideYHeight = 0.2f;
 
@@ -61,7 +61,7 @@ public class UpdatedPlayerControlls : MonoBehaviour
 
         // not subscribing Move to PlayerInput function for movement as makes it very slow and
         // doesnt update move direction based on direction facing
-        inputActs.Player.Slide.performed += ctx => SlideHeld();
+        inputActs.Player.Slide.started += ctx => SlideHeld();
         inputActs.Player.Slide.canceled += ctx => SlideReleased();
         inputActs.Player.Jump.performed += ctx => Jump();
         inputActs.Player.Jump.canceled += ctx => EndJump();
@@ -92,7 +92,12 @@ public class UpdatedPlayerControlls : MonoBehaviour
         moveDirection = transform.forward * moveDirection.y + transform.right * moveDirection.x;
 
         // slide
-        if (slideBeingHeld) Slide();
+        if (slideBeingHeld)
+        {
+            slideTimer += Time.deltaTime;
+            if (slideTimer <= maxSlideTime) Slide();
+            else SetStateRun();
+        }
         else SetStateRun();
     }
 
@@ -103,7 +108,7 @@ public class UpdatedPlayerControlls : MonoBehaviour
         else if (isGrounded && isSliding && state != MoveState.slide) { state = MoveState.slide; justLanded = true; Invoke(nameof(ResetJustLanded), 1); }
         else if (isGrounded && state == MoveState.air) { state = MoveState.run; justLanded = true; Invoke(nameof(ResetJustLanded), 1); }
     }
-    void SetStateRun() { state = MoveState.run; playerHead.transform.localPosition = new Vector3(0, startYHeight, 0); isSliding = false; }
+    void SetStateRun() { state = MoveState.run; playerHead.transform.localPosition = new Vector3(0, startYHeight, 0); isSliding = false; slideTimer = 0; slideBeingHeld = false; }
     void ResetJustLanded() => justLanded = false;
     void SlideHeld() => slideBeingHeld = true;
     void SlideReleased() => slideBeingHeld = false;

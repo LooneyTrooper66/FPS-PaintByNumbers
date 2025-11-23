@@ -17,6 +17,7 @@ public class EnemySpawners : MonoBehaviour
     [Header("Pooling Reqs")]
     [SerializeField] ObjectPooler poolScript;
     [SerializeField] string poolTag;
+    [SerializeField] RoundTimer timerScr;
 
     [Header("Enemy Types")]
     public List<EnemyType> enemyTypes;
@@ -31,9 +32,10 @@ public class EnemySpawners : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!timerScr.gamePlaying) return;
+
         // only activate spawning if this specific spawner is close enough to the player
         distFromPlayer = Vector3.Distance(player.transform.position, transform.position);
-        //Debug.Log(distFromPlayer);
         if (distFromPlayer <= minDistForSpawn)
         {
             timer += Time.deltaTime;
