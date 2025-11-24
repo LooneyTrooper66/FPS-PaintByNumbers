@@ -15,8 +15,8 @@ public class GroundCheck : MonoBehaviour
             GroundNum num = hit.collider.gameObject.GetComponent<GroundNum>();
             if(num != null)
             {
-                if (num.colourNum == 0) roomNum.text = "Current Room: -";
-                else roomNum.text = $"Current Room: {num.colourNum}";
+                if (num.colourNum == 0) return; /*{ roomNum.text = "Current Room: -"; roomNum.color = Color.white; }*/
+                else { roomNum.text = $"Current Room: {num.colourNum}"; roomNum.color = num.paintCol; }
             }
             else roomNum.text = "Current Room: -";
         }

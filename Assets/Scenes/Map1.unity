@@ -917,6 +917,58 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &288040771
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 288040772}
+  - component: {fileID: 288040773}
+  m_Layer: 0
+  m_Name: Spawn MouthR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &288040772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288040771}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -58.5, y: 3, z: 45}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1517353234}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &288040773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288040771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolScript: {fileID: 336171871}
+  poolTag: Enemy
+  timerScr: {fileID: 336171872}
+  enemyTypes:
+  - colourNum: 1
+    colour: {r: 0.8679245, g: 0.515125, b: 0.10234957, a: 1}
+  - colourNum: 2
+    colour: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
 --- !u!1 &304972671
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,15 +1049,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistForSpawn: 75
   poolScript: {fileID: 336171871}
   poolTag: Enemy
   timerScr: {fileID: 336171872}
   enemyTypes:
-  - colourNum: 1
-    colour: {r: 0.8679245, g: 0.515125, b: 0.10234957, a: 1}
-  - colourNum: 2
-    colour: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
   - colourNum: 4
     colour: {r: 0.2811598, g: 0.12175151, b: 0.4528302, a: 1}
   - colourNum: 5
@@ -1133,6 +1180,7 @@ MonoBehaviour:
   mainUI: {fileID: 275708855}
   roundLengthInSeconds: 180
   gamePlaying: 0
+  gameEnded: 0
 --- !u!1 &375346919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1177,19 +1225,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistForSpawn: 75
   poolScript: {fileID: 336171871}
   poolTag: Enemy
   timerScr: {fileID: 336171872}
   enemyTypes:
   - colourNum: 2
     colour: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
-  - colourNum: 2
-    colour: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
-  - colourNum: 3
-    colour: {r: 0.9372549, g: 0.79607844, b: 0.40784314, a: 1}
-  - colourNum: 4
-    colour: {r: 0.2811598, g: 0.12175151, b: 0.4528302, a: 1}
   - colourNum: 3
     colour: {r: 0.9372549, g: 0.79607844, b: 0.40784314, a: 1}
 --- !u!1 &382383222
@@ -1218,7 +1259,7 @@ Transform:
   m_GameObject: {fileID: 382383222}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 37.4}
+  m_LocalPosition: {x: 0, y: 3, z: 36.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1236,11 +1277,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistForSpawn: 75
   poolScript: {fileID: 336171871}
   poolTag: Enemy
   timerScr: {fileID: 336171872}
   enemyTypes:
+  - colourNum: 1
+    colour: {r: 0.8679245, g: 0.515125, b: 0.10234957, a: 1}
   - colourNum: 1
     colour: {r: 0.8679245, g: 0.515125, b: 0.10234957, a: 1}
   - colourNum: 2
@@ -1256,7 +1298,7 @@ GameObject:
   - component: {fileID: 406684383}
   - component: {fileID: 406684384}
   m_Layer: 0
-  m_Name: Spawn Pumpkin
+  m_Name: Spawn PumpkinR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1271,7 +1313,7 @@ Transform:
   m_GameObject: {fileID: 406684382}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.8, y: 3, z: -12.2}
+  m_LocalPosition: {x: -24.6, y: 3, z: -13.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1289,7 +1331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistForSpawn: 75
   poolScript: {fileID: 336171871}
   poolTag: Enemy
   timerScr: {fileID: 336171872}
@@ -1300,12 +1341,58 @@ MonoBehaviour:
     colour: {r: 0.8679245, g: 0.515125, b: 0.10234957, a: 1}
   - colourNum: 2
     colour: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
+--- !u!1 &446649483
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 446649484}
+  - component: {fileID: 446649485}
+  m_Layer: 0
+  m_Name: Spawn TopRB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &446649484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446649483}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -51.5, y: 3, z: -47.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1517353234}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &446649485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446649483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolScript: {fileID: 336171871}
+  poolTag: Enemy
+  timerScr: {fileID: 336171872}
+  enemyTypes:
   - colourNum: 2
     colour: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
-  - colourNum: 4
-    colour: {r: 0.2811598, g: 0.12175151, b: 0.4528302, a: 1}
-  - colourNum: 5
-    colour: {r: 0.5660378, g: 0.18422927, b: 0.29786268, a: 1}
+  - colourNum: 3
+    colour: {r: 0.9372549, g: 0.79607844, b: 0.40784314, a: 1}
 --- !u!1 &531679603
 GameObject:
   m_ObjectHideFlags: 0
@@ -1636,6 +1723,60 @@ ConstantForce:
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
+--- !u!1 &597819554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 597819555}
+  - component: {fileID: 597819556}
+  m_Layer: 0
+  m_Name: Spawn PumpkinL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &597819555
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597819554}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 46.3, y: 3, z: -7.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1517353234}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &597819556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597819554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolScript: {fileID: 336171871}
+  poolTag: Enemy
+  timerScr: {fileID: 336171872}
+  enemyTypes:
+  - colourNum: 1
+    colour: {r: 0.8679245, g: 0.515125, b: 0.10234957, a: 1}
+  - colourNum: 1
+    colour: {r: 0.8679245, g: 0.515125, b: 0.10234957, a: 1}
+  - colourNum: 2
+    colour: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
 --- !u!1 &630449806
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,17 +2059,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistForSpawn: 75
   poolScript: {fileID: 336171871}
   poolTag: Enemy
   timerScr: {fileID: 336171872}
   enemyTypes:
   - colourNum: 1
     colour: {r: 0.8679245, g: 0.515125, b: 0.10234957, a: 1}
-  - colourNum: 2
-    colour: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
   - colourNum: 4
     colour: {r: 0.2811598, g: 0.12175151, b: 0.4528302, a: 1}
+  - colourNum: 4
+    colour: {r: 0.2811598, g: 0.12175151, b: 0.4528302, a: 1}
+  - colourNum: 5
+    colour: {r: 0.5660378, g: 0.18422927, b: 0.29786268, a: 1}
   - colourNum: 5
     colour: {r: 0.5660378, g: 0.18422927, b: 0.29786268, a: 1}
 --- !u!1 &1084311608
@@ -2345,21 +2487,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistForSpawn: 75
   poolScript: {fileID: 336171871}
   poolTag: Enemy
   timerScr: {fileID: 336171872}
   enemyTypes:
-  - colourNum: 1
-    colour: {r: 0.8679245, g: 0.515125, b: 0.10234957, a: 1}
   - colourNum: 4
     colour: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
   - colourNum: 5
     colour: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
-  - colourNum: 4
-    colour: {r: 0.2811598, g: 0.12175151, b: 0.4528302, a: 1}
-  - colourNum: 5
-    colour: {r: 0.5660378, g: 0.18422927, b: 0.29786268, a: 1}
 --- !u!1 &1242783197
 GameObject:
   m_ObjectHideFlags: 0
@@ -2870,11 +3005,15 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1209592447}
+  - {fileID: 1718361982}
   - {fileID: 375346920}
+  - {fileID: 446649484}
   - {fileID: 1783948578}
   - {fileID: 406684383}
+  - {fileID: 597819555}
   - {fileID: 382383223}
   - {fileID: 2045767744}
+  - {fileID: 288040772}
   - {fileID: 861902268}
   - {fileID: 1818674431}
   - {fileID: 2125985027}
@@ -3024,13 +3163,13 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 1
-  m_colorMode: 2
+  m_enableVertexGradient: 0
+  m_colorMode: 0
   m_fontColorGradient:
     topLeft: {r: 0.9647059, g: 0.57254905, b: 0.11372549, a: 1}
     topRight: {r: 0.9647059, g: 0.57254905, b: 0.11372549, a: 1}
-    bottomLeft: {r: 0.69411767, g: 0.27450982, b: 0.13725491, a: 1}
-    bottomRight: {r: 0.69411767, g: 0.27450982, b: 0.13725491, a: 1}
+    bottomLeft: {r: 0.9647059, g: 0.57254905, b: 0.11372549, a: 1}
+    bottomRight: {r: 0.9647059, g: 0.57254905, b: 0.11372549, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -3232,6 +3371,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1691071649}
   m_CullTransparentMesh: 1
+--- !u!1 &1718361981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1718361982}
+  - component: {fileID: 1718361983}
+  m_Layer: 0
+  m_Name: Spawn TopMid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1718361982
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718361981}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.9, y: 3, z: -108.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1517353234}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1718361983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718361981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolScript: {fileID: 336171871}
+  poolTag: Enemy
+  timerScr: {fileID: 336171872}
+  enemyTypes:
+  - colourNum: 4
+    colour: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
+  - colourNum: 5
+    colour: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
 --- !u!1 &1783948577
 GameObject:
   m_ObjectHideFlags: 0
@@ -3276,13 +3467,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistForSpawn: 75
   poolScript: {fileID: 336171871}
   poolTag: Enemy
   timerScr: {fileID: 336171872}
   enemyTypes:
-  - colourNum: 1
-    colour: {r: 0.8679245, g: 0.515125, b: 0.10234957, a: 1}
   - colourNum: 4
     colour: {r: 0.2811598, g: 0.12175151, b: 0.4528302, a: 1}
   - colourNum: 5
@@ -3333,17 +3521,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistForSpawn: 75
   poolScript: {fileID: 336171871}
   poolTag: Enemy
   timerScr: {fileID: 336171872}
   enemyTypes:
   - colourNum: 1
     colour: {r: 0.8679245, g: 0.515125, b: 0.10234957, a: 1}
-  - colourNum: 2
-    colour: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
   - colourNum: 4
     colour: {r: 0.2811598, g: 0.12175151, b: 0.4528302, a: 1}
+  - colourNum: 4
+    colour: {r: 0.2811598, g: 0.12175151, b: 0.4528302, a: 1}
+  - colourNum: 5
+    colour: {r: 0.5660378, g: 0.18422927, b: 0.29786268, a: 1}
   - colourNum: 5
     colour: {r: 0.5660378, g: 0.18422927, b: 0.29786268, a: 1}
 --- !u!1 &1838374571
@@ -3790,7 +3979,7 @@ GameObject:
   - component: {fileID: 2045767744}
   - component: {fileID: 2045767745}
   m_Layer: 0
-  m_Name: Spawn Mouth
+  m_Name: Spawn MouthL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3805,7 +3994,7 @@ Transform:
   m_GameObject: {fileID: 2045767743}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24, y: 3, z: 56.2}
+  m_LocalPosition: {x: 24, y: 3, z: 55.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3823,23 +4012,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistForSpawn: 75
   poolScript: {fileID: 336171871}
   poolTag: Enemy
   timerScr: {fileID: 336171872}
   enemyTypes:
   - colourNum: 1
     colour: {r: 0.8679245, g: 0.515125, b: 0.10234957, a: 1}
-  - colourNum: 1
-    colour: {r: 0.8679245, g: 0.515125, b: 0.10234957, a: 1}
   - colourNum: 2
     colour: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
-  - colourNum: 2
-    colour: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
-  - colourNum: 4
-    colour: {r: 0.2811598, g: 0.12175151, b: 0.4528302, a: 1}
-  - colourNum: 5
-    colour: {r: 0.5660378, g: 0.18422927, b: 0.29786268, a: 1}
 --- !u!1 &2109637899
 GameObject:
   m_ObjectHideFlags: 0
@@ -4263,7 +4443,7 @@ Transform:
   m_GameObject: {fileID: 2125985026}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 96.6, y: 3, z: 105.8}
+  m_LocalPosition: {x: 97.7, y: 3, z: 106.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4281,15 +4461,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistForSpawn: 75
   poolScript: {fileID: 336171871}
   poolTag: Enemy
   timerScr: {fileID: 336171872}
   enemyTypes:
-  - colourNum: 1
-    colour: {r: 0.8679245, g: 0.515125, b: 0.10234957, a: 1}
-  - colourNum: 2
-    colour: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
   - colourNum: 4
     colour: {r: 0.2811598, g: 0.12175151, b: 0.4528302, a: 1}
   - colourNum: 5
@@ -5678,7 +5853,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 4
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
 --- !u!4 &2839073792058813591
 Transform:
   m_ObjectHideFlags: 0
@@ -6172,7 +6347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 4
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
 --- !u!33 &3568110779407846191
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6388,7 +6563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 1
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.8666667, g: 0.5137255, b: 0.101960786, a: 1}
 --- !u!23 &4384970123329550153
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6625,7 +6800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 4
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
 --- !u!1 &4687820498540040755
 GameObject:
   m_ObjectHideFlags: 0
@@ -6734,7 +6909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 4
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
 --- !u!1 &4774971807303913447
 GameObject:
   m_ObjectHideFlags: 0
@@ -7100,7 +7275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 2
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
 --- !u!23 &5291529528248017687
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7264,7 +7439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 6
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.3882353, g: 0.21568628, b: 0.13333334, a: 1}
 --- !u!23 &5567788713924379066
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7345,7 +7520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 3
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.9372549, g: 0.79607844, b: 0.40784314, a: 1}
 --- !u!1 &5606058003090588693
 GameObject:
   m_ObjectHideFlags: 0
@@ -7491,7 +7666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 2
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
 --- !u!33 &5689869382961419208
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7535,7 +7710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 2
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
 --- !u!1 &5702953703133910703
 GameObject:
   m_ObjectHideFlags: 0
@@ -7606,7 +7781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 5
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
 --- !u!23 &5872176525484808850
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7936,7 +8111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 1
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.8666667, g: 0.5137255, b: 0.101960786, a: 1}
 --- !u!1 &6448460301132643600
 GameObject:
   m_ObjectHideFlags: 0
@@ -8193,7 +8368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 5
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
 --- !u!33 &6654598083580637910
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -8365,7 +8540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 2
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
 --- !u!33 &6943305226712251910
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -8504,7 +8679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 5
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
 --- !u!4 &7109874186059916734
 Transform:
   m_ObjectHideFlags: 0
@@ -8570,7 +8745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 4
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
 --- !u!33 &7152365381683919195
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -8614,7 +8789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 4
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
 --- !u!33 &7161628505723632604
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -8711,7 +8886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 5
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
 --- !u!33 &7235895775340205136
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -8755,7 +8930,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 1
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.8666667, g: 0.5137255, b: 0.101960786, a: 1}
 --- !u!1 &7304921513962282907
 GameObject:
   m_ObjectHideFlags: 0
@@ -8811,7 +8986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 4
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
 --- !u!4 &7483951581592632376
 Transform:
   m_ObjectHideFlags: 0
@@ -8882,7 +9057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 5
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
 --- !u!1 &7558756761081890306
 GameObject:
   m_ObjectHideFlags: 0
@@ -8946,7 +9121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 2
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
 --- !u!33 &7610337410827636860
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9050,7 +9225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 4
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
 --- !u!33 &8093966814111263582
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9094,7 +9269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 5
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
 --- !u!33 &8114224316675851255
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9138,7 +9313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 5
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
 --- !u!1 &8115265077450804112
 GameObject:
   m_ObjectHideFlags: 0
@@ -9194,7 +9369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 1
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.8666667, g: 0.5137255, b: 0.101960786, a: 1}
 --- !u!4 &8175557294686060695
 Transform:
   m_ObjectHideFlags: 0
@@ -9339,7 +9514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 2
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
 --- !u!23 &8326676294507265906
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9440,7 +9615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 4
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
 --- !u!23 &8465757865132092368
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9521,7 +9696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 4
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
 --- !u!33 &8488959541635216311
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9610,7 +9785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 1
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.8666667, g: 0.5137255, b: 0.101960786, a: 1}
 --- !u!1 &8509880283897120995
 GameObject:
   m_ObjectHideFlags: 0
@@ -9666,7 +9841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 5
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
 --- !u!33 &8528042140427364791
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9710,7 +9885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 4
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
 --- !u!1 &8532971343621988202
 GameObject:
   m_ObjectHideFlags: 0
@@ -9766,7 +9941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 5
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
 --- !u!33 &8571362066214445261
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9810,7 +9985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 3
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.9372549, g: 0.79607844, b: 0.40784314, a: 1}
 --- !u!4 &8645580625597470192
 Transform:
   m_ObjectHideFlags: 0
@@ -9861,7 +10036,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 5
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
 --- !u!23 &8662744925853562450
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9942,7 +10117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 4
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
 --- !u!4 &8805325135193236650
 Transform:
   m_ObjectHideFlags: 0
@@ -9993,7 +10168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 5
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
 --- !u!1 &8808683150762678829
 GameObject:
   m_ObjectHideFlags: 0
@@ -10093,7 +10268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 2
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
 --- !u!1 &8850217903182307871
 GameObject:
   m_ObjectHideFlags: 0
@@ -10149,7 +10324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 1
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.8666667, g: 0.5137255, b: 0.101960786, a: 1}
 --- !u!4 &8986276761216580810
 Transform:
   m_ObjectHideFlags: 0
@@ -10200,7 +10375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 4
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
 --- !u!23 &8994623563255282751
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10281,7 +10456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 1
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.8666667, g: 0.5137255, b: 0.101960786, a: 1}
 --- !u!23 &9021439140303823623
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10362,7 +10537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 1
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.8666667, g: 0.5137255, b: 0.101960786, a: 1}
 --- !u!33 &9065203658016128361
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -10406,7 +10581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 6
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.3882353, g: 0.21568628, b: 0.13333334, a: 1}
 --- !u!33 &9083488961469504493
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -10450,7 +10625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 1
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.8666667, g: 0.5137255, b: 0.101960786, a: 1}
 --- !u!1 &9121190317932200515
 GameObject:
   m_ObjectHideFlags: 0
@@ -10506,7 +10681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 5
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
 --- !u!4 &9134246799367334563
 Transform:
   m_ObjectHideFlags: 0
@@ -10557,7 +10732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 5
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
 --- !u!33 &9147123845980784009
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -10621,7 +10796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 4
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
 --- !u!1 &9218989838362461073
 GameObject:
   m_ObjectHideFlags: 0
@@ -10677,7 +10852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colourNum: 2
-  paintCol: {r: 0, g: 0, b: 0, a: 0}
+  paintCol: {r: 0.07450981, g: 0.03529412, b: 0.07058824, a: 1}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

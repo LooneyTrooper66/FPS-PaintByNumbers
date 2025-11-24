@@ -12,6 +12,7 @@ public class RoundTimer : MonoBehaviour
     public float roundLengthInSeconds;
     float timeLeft;
     public bool gamePlaying;
+    public bool gameEnded;
 
 
     private void Start()
@@ -22,6 +23,7 @@ public class RoundTimer : MonoBehaviour
         pauseMenu.SetActive(false);
         mainUI.SetActive(false);
         gamePlaying = false;
+        gameEnded = false;
     }
 
     public void StartButton() => StartCoroutine(GameCountdown());
@@ -51,9 +53,10 @@ public class RoundTimer : MonoBehaviour
         {
             timeLeft -= Time.deltaTime;
             UpdateTimer();
-            if (timeLeft <= 0)
+            if (timeLeft < 0)
             {
-                gamePlaying = false;
+                gamePlaying = false; // need to add actual end screen
+                gameEnded = true;
             }
         }
     }
