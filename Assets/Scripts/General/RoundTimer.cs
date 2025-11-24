@@ -28,6 +28,8 @@ public class RoundTimer : MonoBehaviour
     IEnumerator GameCountdown()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        beforeStart.SetActive(false);
         roundStart.SetActive(true);
         yield return new WaitForSecondsRealtime(3.3f);
         timeLeft = roundLengthInSeconds;

@@ -8,13 +8,6 @@ public class PlayerLook : MonoBehaviour
     public RoundTimer timer;
 
 
-
-    private void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
     private void LateUpdate()
     {
         // lock x movement/rotation while sliding
