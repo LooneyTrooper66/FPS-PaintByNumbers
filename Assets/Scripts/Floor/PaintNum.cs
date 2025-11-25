@@ -3,15 +3,12 @@ using UnityEngine;
 public class PaintNum : MonoBehaviour
 {
     public int paintNum;
-    PercentCorrectCounter pcc;
     Vector3 raycastStartPoint;
     LayerMask mask;
 
 
     private void Awake()
     {
-        GameObject pccGO = GameObject.FindWithTag("Counter");
-        pcc = pccGO.GetComponent<PercentCorrectCounter>();
         raycastStartPoint = new Vector3(transform.localPosition.x, transform.localPosition.y + 0.2f, transform.localPosition.z);
         mask = LayerMask.GetMask("Floor");
     }
@@ -23,12 +20,16 @@ public class PaintNum : MonoBehaviour
         if (Physics.Raycast(raycastStartPoint, -Vector3.up, out hit, 5, mask))
         {
             GroundNum num = hit.collider.gameObject.GetComponent<GroundNum>();
+
             if (num.colourNum == 0) return;
-            pcc.numPaint++;
+            PercentCorrectCounter.pcc.numPaint++;
             if (num.colourNum == paintNum)
             {
-                pcc.numCorrect++;
+                PercentCorrectCounter.pcc.numCorrect++;
+                num.PaintFloorStep();
+                PercentCorrectCounter.pcc.EnemyShot(true);
             }
+            else PercentCorrectCounter.pcc.EnemyShot(false);
         }
     }
 }

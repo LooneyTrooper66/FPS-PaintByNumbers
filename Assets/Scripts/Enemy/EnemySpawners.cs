@@ -11,18 +11,17 @@ public class EnemySpawners : MonoBehaviour
         public Color colour;
     }
     float distFromPlayer;
-    float minDistForSpawn = 60f;
+    float minDistForSpawn = 50;
     GameObject player;
 
     [Header("Pooling Reqs")]
     [SerializeField] ObjectPooler poolScript;
     [SerializeField] string poolTag;
-    [SerializeField] RoundTimer timerScr;
 
     [Header("Enemy Types")]
     public List<EnemyType> enemyTypes;
-    float timeBetweenSpawns = 2.5f;
-    float timer = 0;
+    float timeBetweenSpawns = 2.4f;
+    float timer = 2;
 
 
     private void Start()
@@ -32,7 +31,7 @@ public class EnemySpawners : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!timerScr.gamePlaying) return;
+        if (!RoundTimer.i.gamePlaying) return;
 
         // only activate spawning if this specific spawner is close enough to the player
         distFromPlayer = Vector3.Distance(player.transform.position, transform.position);
@@ -41,6 +40,7 @@ public class EnemySpawners : MonoBehaviour
             timer += Time.deltaTime;
             if (timer >= timeBetweenSpawns)
             {
+                RemoveCompletedColours();
                 timer = 0;
                 int num = Random.Range(0, enemyTypes.Count);
                 SpawnEnemy(num);
@@ -58,5 +58,14 @@ public class EnemySpawners : MonoBehaviour
         text.text = enemyTypes[num].colourNum.ToString();
         EnemyPaint eP = newEnemy.GetComponent<EnemyPaint>();
         eP.colourNum = enemyTypes[num].colourNum;
+    }
+
+    void RemoveCompletedColours()
+    {
+        for (int i = 0; i < enemyTypes.Count; i++)
+        {
+            bool temp = FloorFillCheck.ffc.CheckIfComplete(enemyTypes[i].colourNum);
+            if (temp) enemyTypes.RemoveAt(i); 
+        }
     }
 }

@@ -4,6 +4,8 @@ using System.Collections;
 
 public class RoundTimer : MonoBehaviour
 {
+    public static RoundTimer i;
+
     public TMP_Text timerText;
     public GameObject beforeStart;
     public GameObject roundStart;
@@ -14,6 +16,12 @@ public class RoundTimer : MonoBehaviour
     public bool gamePlaying;
     public bool gameEnded;
 
+
+    void Awake()
+    {
+        if (i != null) Destroy(this);
+        else i = this;
+    }
 
     private void Start()
     {

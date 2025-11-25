@@ -5,14 +5,13 @@ public class PlayerLook : MonoBehaviour
     [SerializeField] float mouseSense = 1f;
     [SerializeField] Transform body;
     float xRotation;
-    public RoundTimer timer;
 
 
     private void LateUpdate()
     {
         // lock x movement/rotation while sliding
 
-        if(timer.gamePlaying)
+        if(RoundTimer.i.gamePlaying)
         {
             float mouseX = Input.GetAxis("Mouse X") * mouseSense;
             float mouseY = Input.GetAxis("Mouse Y") * mouseSense;
