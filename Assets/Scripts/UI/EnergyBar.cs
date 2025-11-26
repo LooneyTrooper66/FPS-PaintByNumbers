@@ -1,14 +1,17 @@
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class EnergyBar : MonoBehaviour
 {
     public Slider energy;
+    public Animator energyAnim;
+    bool barPusling = false;
     bool lerpUp = true;
-    float lerpSpeed = 1;
+    float lerpSpeed = 2;
 
-    // NEED TO FIX THIS AS LERP IS TOO FAST
+    [Header("Game Over")]
+    public string gameOverText;
+
 
     private void Start() => energy.value = 100;
 
@@ -16,24 +19,45 @@ public class EnergyBar : MonoBehaviour
     {
         if (!RoundTimer.i.gamePlaying) return;
 
+        // lerp energy bar
+        LerpBar();
+        CheckLerpDirection();  // need to get some playtests to see how fair this is and wether it needs changing
+
+        // animate lerp bar
+        BarPusle();
+
+        // dead check
+        if (energy.value <= 0) EnergyDrained();
+    }
+
+    void LerpBar()
+    {
         if (lerpUp && energy.value != 100)
         {
-            energy.value = Mathf.Lerp(energy.value, 100, lerpSpeed * Time.deltaTime);
+            energy.value = Mathf.MoveTowards(energy.value, 100, lerpSpeed * Time.deltaTime);
         }
         else if (!lerpUp && energy.value != 0)
         {
-            energy.value = Mathf.Lerp(energy.value, 0, lerpSpeed * Time.deltaTime);
+            energy.value = Mathf.MoveTowards(energy.value, 0, lerpSpeed * Time.deltaTime);
         }
-
-
-        if (PercentCorrectCounter.pcc.percentage > 75) lerpSpeed = 0.5f;
-        else if (PercentCorrectCounter.pcc.percentage <= 75 && PercentCorrectCounter.pcc.percentage > 50) lerpSpeed = 1;
-        else if (PercentCorrectCounter.pcc.percentage <= 50) lerpSpeed = 2;
-        else lerpSpeed = 0.1f;
     }
 
-    public void ShotEnemy(bool correct)
+    void CheckLerpDirection()
     {
-        lerpUp = correct;
+        if (PercentCorrectCounter.pcc.percentage <= 50 && lerpUp) lerpUp = false;
+        else if (PercentCorrectCounter.pcc.percentage >= 75 && !lerpUp) lerpUp = true;
+    }
+
+    void BarPusle()
+    {
+        if (energy.value <= 25 && !barPusling) { energyAnim.SetBool("below25", true); barPusling = true; }
+        else if (energy.value > 25 && barPusling) { energyAnim.SetBool("below25", false); barPusling = false; }
+    }
+
+    void EnergyDrained()
+    {
+        RoundTimer.i.gamePlaying = false;
+        RoundTimer.i.gameEnded = true;
+        RoundTimer.i.TimerEndedScreen(gameOverText);
     }
 }

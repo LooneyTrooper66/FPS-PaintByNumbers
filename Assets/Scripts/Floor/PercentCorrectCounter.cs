@@ -6,6 +6,7 @@ public class PercentCorrectCounter : MonoBehaviour
     public static PercentCorrectCounter pcc;
     public EnergyBar bar;
     [SerializeField] TMP_Text percent;
+    public string percentText = "100% correct";
     public int numPaint = 0;
     public int numCorrect = 0;
     public decimal percentage = 100;
@@ -22,12 +23,8 @@ public class PercentCorrectCounter : MonoBehaviour
         if (numPaint > 0)
         {
             percentage = decimal.Divide(numCorrect, numPaint) * 100;
-            percent.text = $"{decimal.Round(percentage, 2)}% correct";
+            percentText = $"{decimal.Round(percentage, 2)}% correct";
+            percent.text = percentText;
         }
-    }
-
-    public void EnemyShot(bool correct)
-    {
-        bar.ShotEnemy(correct);
     }
 }

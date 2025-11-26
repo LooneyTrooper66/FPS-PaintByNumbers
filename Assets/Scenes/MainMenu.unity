@@ -7607,12 +7607,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "WASD to move, Space to jump, \nShift to dash, Left Click to shoot.\nTo
-    slide, hold Control after jumping or dashing.\n\nShoot enemies in the correct
-    areas to paint the map. You can see the number of the room you are in on the
-    minimap and at the top of your HUD. Enemies have a number above their heads corrolating
-    to their colour. If you shoot one in the wrong area, your %correct will drop
-    and you will take damage. Dont die."
+  m_text: "WASD -> move, Space -> jump, \nLShift -> dash, LCtrl -> slide, LMouseClick
+    -> shoot, Escape -> pause\n\nCorrectly paint as much of the map as possible within
+    the time limit.\nEnemies will explode when close for too long. See colour/number
+    to shoot in top centre of HUD.\n\nThe percentage of the map you paint correctly
+    determines wether your energy bar drains; fall below 50% correct and it will
+    go down, it wont go back up unitl you get the percentage back above 75%."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 802514cbc9907a944817e831fb8e296e, type: 2}
   m_sharedMaterial: {fileID: 5482513782518748063, guid: 802514cbc9907a944817e831fb8e296e, type: 2}
@@ -8085,7 +8085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3764706, g: 0.15294118, b: 0.28627452, a: 0.6039216}
+  m_Color: {r: 0.3764706, g: 0.15294118, b: 0.28627452, a: 0.6862745}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -31,6 +31,7 @@ public class EnemySpawners : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (RoundTimer.i.gameEnded) gameObject.SetActive(false);
         if (!RoundTimer.i.gamePlaying) return;
 
         // only activate spawning if this specific spawner is close enough to the player

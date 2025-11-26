@@ -27,9 +27,7 @@ public class PaintNum : MonoBehaviour
             {
                 PercentCorrectCounter.pcc.numCorrect++;
                 num.PaintFloorStep();
-                PercentCorrectCounter.pcc.EnemyShot(true);
             }
-            else PercentCorrectCounter.pcc.EnemyShot(false);
         }
     }
 }

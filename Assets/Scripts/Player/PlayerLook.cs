@@ -4,13 +4,14 @@ public class PlayerLook : MonoBehaviour
 {
     [SerializeField] float mouseSense = 1f;
     [SerializeField] Transform body;
+    [SerializeField] GameObject CamPosAfterGame;
+    [SerializeField] GameObject fireflies;
+    [SerializeField] GameObject gun;
     float xRotation;
 
 
     private void LateUpdate()
     {
-        // lock x movement/rotation while sliding
-
         if(RoundTimer.i.gamePlaying)
         {
             float mouseX = Input.GetAxis("Mouse X") * mouseSense;
@@ -21,6 +22,15 @@ public class PlayerLook : MonoBehaviour
 
             transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
             body.Rotate(Vector3.up * mouseX);
+        }
+        
+        if (RoundTimer.i.gameEnded)
+        {
+            gun.SetActive(false);
+            fireflies.SetActive(true);
+            transform.parent = CamPosAfterGame.transform;
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.identity;
         }
     }
 }

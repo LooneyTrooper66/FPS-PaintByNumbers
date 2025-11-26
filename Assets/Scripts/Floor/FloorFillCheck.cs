@@ -15,6 +15,7 @@ public class FloorFillCheck : MonoBehaviour
     }
     public List<Colours> colours;
     GameObject[] enemies;
+    public int floorTilesCompleted = 0;
 
 
     private void Awake()
@@ -26,6 +27,7 @@ public class FloorFillCheck : MonoBehaviour
 
     public void AddToTile(int numOfColour)
     {
+        floorTilesCompleted++;
         int dictNum = numOfColour - 1;
         colours[dictNum].numOfTilesComplete++;
 
