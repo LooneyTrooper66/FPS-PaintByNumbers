@@ -91,11 +91,13 @@ public class RoundTimer : MonoBehaviour
 
     public void TimerEndedScreen(string titleText)
     {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         pauseMenu.SetActive(false);
         mainUI.SetActive(false);
         TMP_Text[] texts = gameEndCanvas.GetComponent<Canvas>().GetComponentsInChildren<TMP_Text>();
         texts[0].text = titleText;
-        texts[1].text = ($"Lets see your stats!\n\n% of paint in correct areas:\n{PercentCorrectCounter.pcc.percentText}\n\nNumber of tiles filled:\n{FloorFillCheck.ffc.floorTilesCompleted}/48 completed\n\nTotal enemies killed:\n{PercentCorrectCounter.pcc.numPaint.ToString()}\n");
+        texts[1].text = ($"Lets see your stats!\n\n% of paint in correct areas:\n{PercentCorrectCounter.pcc.percentText}\n\nNumber of tiles filled:\n{FloorFillCheck.ffc.floorTilesCompleted}/48 completed\n\nTotal enemies killed:\n{PercentCorrectCounter.pcc.numPaint.ToString()}\n\nWant to retry?");
         gameEndCanvas.SetActive(true);
     }
 }
