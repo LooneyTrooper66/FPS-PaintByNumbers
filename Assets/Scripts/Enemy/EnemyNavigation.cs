@@ -17,7 +17,7 @@ public class EnemyNavigation : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if (timer > 60) gameObject.SetActive(false); // if been alive more than 60 seconds deactivate
+        if (timer > 100) gameObject.SetActive(false); // if been alive more than 60 seconds deactivate
 
         if (RoundTimer.i.gameEnded) gameObject.SetActive(false);
     }
@@ -27,6 +27,6 @@ public class EnemyNavigation : MonoBehaviour
         agent.destination = player.transform.position;
         float dist = Vector3.Distance(transform.position, player.transform.position);
         if (dist <= 3) agent.destination = transform.position;
-        else if (dist >= 50) gameObject.SetActive(false);
+        else if (dist >= 60) gameObject.SetActive(false);
     }
 }

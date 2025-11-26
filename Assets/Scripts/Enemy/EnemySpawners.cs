@@ -20,7 +20,7 @@ public class EnemySpawners : MonoBehaviour
 
     [Header("Enemy Types")]
     public List<EnemyType> enemyTypes;
-    float timeBetweenSpawns = 2.4f;
+    float timeBetweenSpawns = 2f;
     float timer = 2;
 
 
