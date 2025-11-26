@@ -17,7 +17,7 @@ public class EnemyNavigation : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if (timer > 100) gameObject.SetActive(false); // if been alive more than 60 seconds deactivate
+        if (timer > 80) gameObject.SetActive(false); // if been alive more than 60 seconds deactivate
 
         if (RoundTimer.i.gameEnded) gameObject.SetActive(false);
     }

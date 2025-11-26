@@ -1089,6 +1089,59 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &286284551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 286284552}
+  - component: {fileID: 286284553}
+  m_Layer: 0
+  m_Name: Spawn TopL (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &286284552
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286284551}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 73, y: 3, z: -19.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1517353234}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &286284553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286284551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31562815f69d5084dab7037ff191cd68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolScript: {fileID: 336171871}
+  poolTag: Enemy
+  enemyTypes:
+  - colourNum: 4
+    colour: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
+  - colourNum: 5
+    colour: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
+  - colourNum: 5
+    colour: {r: 0.5647059, g: 0.18431373, b: 0.29803923, a: 1}
 --- !u!1 &288040771
 GameObject:
   m_ObjectHideFlags: 0
@@ -1350,7 +1403,7 @@ MonoBehaviour:
   roundStart: {fileID: 33286047}
   pauseMenu: {fileID: 1838374571}
   mainUI: {fileID: 275708855}
-  roundLengthInSeconds: 300
+  roundLengthInSeconds: 360
   gamePlaying: 0
   gameEnded: 0
   textAnim: {fileID: 139731583}
@@ -3779,6 +3832,8 @@ MonoBehaviour:
   poolScript: {fileID: 336171871}
   poolTag: Enemy
   enemyTypes:
+  - colourNum: 4
+    colour: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
   - colourNum: 4
     colour: {r: 0.28235295, g: 0.12156863, b: 0.4509804, a: 1}
   - colourNum: 5
@@ -9438,6 +9493,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1209592447}
+  - {fileID: 286284552}
   - {fileID: 1718361982}
   - {fileID: 375346920}
   - {fileID: 446649484}
@@ -9967,7 +10023,7 @@ Transform:
   m_GameObject: {fileID: 1718361981}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.9, y: 3, z: -108.3}
+  m_LocalPosition: {x: -5.5, y: 3, z: -65.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10157,6 +10213,8 @@ MonoBehaviour:
     colour: {r: 0.2811598, g: 0.12175151, b: 0.4528302, a: 1}
   - colourNum: 5
     colour: {r: 0.5660378, g: 0.18422927, b: 0.29786268, a: 1}
+  - colourNum: 6
+    colour: {r: 0.38679248, g: 0.21744983, b: 0.13318796, a: 1}
   - colourNum: 6
     colour: {r: 0.38679248, g: 0.21744983, b: 0.13318796, a: 1}
   - colourNum: 6
