@@ -10077,8 +10077,8 @@ MonoBehaviour:
     within the time limit.\n\nThings to Know:\nEnemies will explode when close enough
     to you for too long. \nYou can see the colour/number you need to shoot in the
     top centre of your UI.\nThe percentage of the map you paint correctly determines
-    wether your energy bar drains; fall below 50% correct and it will go down,\nit
-    wont go back up unitl the percentage is back above 75%."
+    whether your energy bar drains; fall below 50% correct and it will go down,\nit
+    wont go back up until the percentage is back above 75%."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8c632ea214ab4fc4da8f37e8eb7367f9, type: 2}
   m_sharedMaterial: {fileID: -1163368552342969960, guid: 8c632ea214ab4fc4da8f37e8eb7367f9, type: 2}
@@ -11444,8 +11444,8 @@ MonoBehaviour:
     within the time limit.\n\nThings to Know:\nEnemies will explode when close enough
     to you for too long. \nYou can see the colour/number you need to shoot in the
     top centre of your UI.\nThe percentage of the map you paint correctly determines
-    wether your energy bar drains; fall below 50% correct and it will go down,\nit
-    wont go back up unitl the percentage is back above 75%."
+    whether your energy bar drains; fall below 50% correct and it will go down,\nit
+    wont go back up until the percentage is back above 75%."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8c632ea214ab4fc4da8f37e8eb7367f9, type: 2}
   m_sharedMaterial: {fileID: -1163368552342969960, guid: 8c632ea214ab4fc4da8f37e8eb7367f9, type: 2}

@@ -7611,8 +7611,8 @@ MonoBehaviour:
     -> shoot, Escape -> pause\n\nCorrectly paint as much of the map as possible within
     the time limit.\nEnemies will explode when close for too long. See colour/number
     to shoot in top centre of HUD.\n\nThe percentage of the map you paint correctly
-    determines wether your energy bar drains; fall below 50% correct and it will
-    go down, it wont go back up unitl you get the percentage back above 75%."
+    determines whether your energy bar drains; fall below 50% correct and it will
+    go down, it wont go back up until you get the percentage back above 75%."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 802514cbc9907a944817e831fb8e296e, type: 2}
   m_sharedMaterial: {fileID: 5482513782518748063, guid: 802514cbc9907a944817e831fb8e296e, type: 2}
@@ -8746,8 +8746,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Map image: PJs and Paint\nGame start number sprites: Jardson Jean on itch.io\nSound
-    effects: \n\nEverything else: Libby Hughes"
+  m_text: 'Map image: PJs and Paint
+
+    Game start number sprites: Jardson Jean
+    on itch.io
+
+
+    Everything else: Libby Hughes'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 802514cbc9907a944817e831fb8e296e, type: 2}
   m_sharedMaterial: {fileID: 5482513782518748063, guid: 802514cbc9907a944817e831fb8e296e, type: 2}
