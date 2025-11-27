@@ -26,7 +26,7 @@ public class BulletBehaviour : MonoBehaviour
         if (targetPos != Vector3.zero)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, 80 * Time.deltaTime);
-            if (target.activeSelf && Vector3.Distance(transform.position, targetPos) < 0.05f)
+            if (target.activeSelf && Vector3.Distance(transform.position, targetPos) < 0.1f)
             {
                 if (targetTag == "Enemy") target.GetComponent<EnemyPaint>().Explode(1);
                 gameObject.SetActive(false);
@@ -37,7 +37,7 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Surface")
+        if (collision.gameObject.tag == "Surface")
         {
             gameObject.SetActive(false);
         }

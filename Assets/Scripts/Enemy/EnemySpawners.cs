@@ -11,7 +11,7 @@ public class EnemySpawners : MonoBehaviour
         public Color colour;
     }
     float distFromPlayer;
-    float minDistForSpawn = 50;
+    float minDistForSpawn = 80;
     GameObject player;
 
     [Header("Pooling Reqs")]
@@ -20,8 +20,8 @@ public class EnemySpawners : MonoBehaviour
 
     [Header("Enemy Types")]
     public List<EnemyType> enemyTypes;
-    float timeBetweenSpawns = 2f;
-    float timer = 2;
+    float timeBetweenSpawns = 2;
+    float timer = 1;
 
 
     private void Start()
@@ -41,7 +41,6 @@ public class EnemySpawners : MonoBehaviour
             timer += Time.deltaTime;
             if (timer >= timeBetweenSpawns)
             {
-                RemoveCompletedColours();
                 timer = 0;
                 int num = Random.Range(0, enemyTypes.Count);
                 SpawnEnemy(num);
@@ -59,6 +58,9 @@ public class EnemySpawners : MonoBehaviour
         text.text = enemyTypes[num].colourNum.ToString();
         EnemyPaint eP = newEnemy.GetComponent<EnemyPaint>();
         eP.colourNum = enemyTypes[num].colourNum;
+
+        // remove colours after to avoid errors with array length (hopefully)
+        RemoveCompletedColours();
     }
 
     void RemoveCompletedColours()

@@ -14,6 +14,11 @@ public class EnemyNavigation : MonoBehaviour
         player = GameObject.FindWithTag("Player");
     }
 
+    private void OnEnable()
+    {
+        timer = 0;
+    }
+
     private void Update()
     {
         timer += Time.deltaTime;
@@ -26,7 +31,7 @@ public class EnemyNavigation : MonoBehaviour
     {
         agent.destination = player.transform.position;
         float dist = Vector3.Distance(transform.position, player.transform.position);
-        if (dist <= 3) agent.destination = transform.position;
-        else if (dist >= 60) gameObject.SetActive(false);
+        if (dist <= 4) agent.destination = transform.position;
+        else if (dist >= 90) gameObject.SetActive(false);
     }
 }
