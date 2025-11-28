@@ -44,8 +44,8 @@ public class EnergyBar : MonoBehaviour
 
     void CheckLerpDirection()
     {
-        if (PercentCorrectCounter.pcc.percentage <= 50 && lerpUp) lerpUp = false;
-        else if (PercentCorrectCounter.pcc.percentage >= 75 && !lerpUp) lerpUp = true;
+        if (PercentCorrectCounter.pcc.percentage <= 75 && lerpUp) lerpUp = false;
+        else if (PercentCorrectCounter.pcc.percentage > 75 && !lerpUp) lerpUp = true;
     }
 
     void BarPusle()

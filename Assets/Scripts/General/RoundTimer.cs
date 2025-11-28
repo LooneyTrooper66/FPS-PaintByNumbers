@@ -16,6 +16,7 @@ public class RoundTimer : MonoBehaviour
     float timeLeft;
     public bool gamePlaying;
     public bool gameEnded;
+    bool gameNotStarted;
     public Animator textAnim;
     bool animPlaying;
 
@@ -40,6 +41,9 @@ public class RoundTimer : MonoBehaviour
         mainUI.SetActive(false);
         gamePlaying = false;
         gameEnded = false;
+        gameNotStarted = true;
+
+        roundLengthInSeconds = PlayerPrefs.GetFloat("roundTimeInMins") * 60;
     }
 
     public void StartButton() => StartCoroutine(GameCountdown());
@@ -49,11 +53,12 @@ public class RoundTimer : MonoBehaviour
         Cursor.visible = false;
         beforeStart.SetActive(false);
         roundStart.SetActive(true);
-        yield return new WaitForSecondsRealtime(3.3f);
+        yield return new WaitForSecondsRealtime(3.5f);
         timeLeft = roundLengthInSeconds;
         roundStart.SetActive(false);
         mainUI.SetActive(true);
         gamePlaying = true;
+        gameNotStarted = false;
     }
 
     private void Update()
@@ -61,7 +66,7 @@ public class RoundTimer : MonoBehaviour
         // pause 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (gameEnded) return;
+            if (gameEnded || gameNotStarted) return;
             if (gamePlaying) { gamePlaying = false; Time.timeScale = 0; pauseMenu.SetActive(true); }
             else { gamePlaying = true; Time.timeScale = 1; pauseMenu.SetActive(false); }
         }

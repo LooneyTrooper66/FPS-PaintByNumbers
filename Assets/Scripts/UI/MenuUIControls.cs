@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using TMPro;
 
 public class MenuUIControls : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class MenuUIControls : MonoBehaviour
     public GameObject optionsMenu;
     public GameObject creditsMenu;
     public Image fadeOut;
+    public Slider rDSlider;
+    public TMP_Text rdSliderVal;
     float duration = 1;
 
 
@@ -20,6 +23,7 @@ public class MenuUIControls : MonoBehaviour
         tutorialMenu.SetActive(false);
         optionsMenu.SetActive(false);
         creditsMenu.SetActive(false);
+        rDSlider.value = PlayerPrefs.GetFloat("roundTimeInMins");
     }
 
     public void StartButton()
@@ -59,6 +63,12 @@ public class MenuUIControls : MonoBehaviour
         optionsMenu.SetActive(false);
         creditsMenu.SetActive(false);
 
+    }
+
+    public void RoundDurationSlider()
+    {
+        PlayerPrefs.SetFloat("roundTimeInMins", rDSlider.value);
+        rdSliderVal.text = rDSlider.value.ToString();
     }
 
     IEnumerator FadeScreen()

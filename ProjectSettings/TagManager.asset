@@ -10,6 +10,7 @@ TagManager:
   - Particles
   - Counter
   - Magnetised
+  - GameSettings
   layers:
   - Default
   - TransparentFX
