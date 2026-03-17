@@ -11,12 +11,10 @@ public class UpdatedPlayerControlls : MonoBehaviour
     float moveSpeed;
     InputSystem_Actions inputActs;
     Vector3 moveDirection;
-    [Space]
     [SerializeField] float dashForce = 20;
     bool canDash = true;
     bool justDashed = false;
     float dashCooldown = 1;
-    [Space]
     [SerializeField] float slideForce = 20;
     [SerializeField] GameObject playerHead;
     bool slideBeingHeld = false;
@@ -26,6 +24,7 @@ public class UpdatedPlayerControlls : MonoBehaviour
     float slideTimer = 0;
     float startYHeight = 0.7f;
     float slideYHeight = 0.2f;
+    bool isRunning = false;
 
     [Header("Air Movement")]
     [SerializeField] float jumpForce = 15;
@@ -41,7 +40,6 @@ public class UpdatedPlayerControlls : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     float playerHeight = 1.1f;
     bool isGrounded;
-    [Space]
     public MoveState state;
     public enum MoveState
     {
@@ -49,6 +47,19 @@ public class UpdatedPlayerControlls : MonoBehaviour
         slide,
         air
     }
+
+
+    [Header("Audio/SFX")]
+    public AudioSource playerSource;
+    public AudioClip[] footsteps;
+    public AudioClip onJump;
+    public AudioClip forceDown;
+    public AudioClip onLand;
+    public AudioClip slideRelease;
+    public AudioSource sustainSource;
+    float stepSoundPlayTimer;
+    bool sustainPlaying = false;
+    bool forceDownPlayed = false;
 
 
     private void Awake() { rb = GetComponent<Rigidbody>(); thisGrav = GetComponent<ConstantForce>(); }
@@ -83,6 +94,12 @@ public class UpdatedPlayerControlls : MonoBehaviour
         // Ground Check
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight, groundMask);
         if (justDashed || justLanded || state == MoveState.air) canSlide = true; else canSlide = false;
+
+        // play footsteps
+        if (isRunning)
+        {
+
+        }
     }
     void PlayerInput()
     {
@@ -109,12 +126,19 @@ public class UpdatedPlayerControlls : MonoBehaviour
     {
         if (!isGrounded && state != MoveState.air) state = MoveState.air;
         else if (isGrounded && isSliding && state != MoveState.slide) { state = MoveState.slide; justLanded = true; Invoke(nameof(ResetJustLanded), 1); }
-        else if (isGrounded && state == MoveState.air) { state = MoveState.run; justLanded = true; Invoke(nameof(ResetJustLanded), 1); }
+        else if (isGrounded && state == MoveState.air) { state = MoveState.run; playerSource.PlayOneShot(onLand); justLanded = true; Invoke(nameof(ResetJustLanded), 1); }
     }
     void SetStateRun() { state = MoveState.run; playerHead.transform.localPosition = new Vector3(0, startYHeight, 0); isSliding = false; slideTimer = 0; slideBeingHeld = false; }
     void ResetJustLanded() => justLanded = false;
     void SlideHeld() => slideBeingHeld = true;
-    void SlideReleased() => slideBeingHeld = false;
+    void SlideReleased() 
+    { 
+        slideBeingHeld = false; 
+        sustainSource.Pause();
+        playerSource.pitch = 1;
+        playerSource.PlayOneShot(slideRelease); 
+        sustainPlaying = false; 
+    }
     #endregion
 
     #region // run
@@ -122,10 +146,10 @@ public class UpdatedPlayerControlls : MonoBehaviour
     void MovePlayer() { rb.linearVelocity += new Vector3(moveDirection.x, 0, moveDirection.z); LimitVelocity(); }
     void LimitVelocity()
     {
-        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-        if (flatVel.magnitude > moveSpeed)
+        Vector3 flatVal = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        if (flatVal.magnitude > moveSpeed)
         {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            Vector3 limitedVel = flatVal.normalized * moveSpeed;
             rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
         }
     }
@@ -137,6 +161,8 @@ public class UpdatedPlayerControlls : MonoBehaviour
         if (state == MoveState.slide || canDash == false) return; // cant dash if already sliding, cant dash if cooldown not over
         canDash = false;
         justDashed = true;
+        playerSource.pitch = Random.Range(0.8f, 1.1f);
+        playerSource.PlayOneShot(onJump);
         rb.AddForce(transform.forward * dashForce, ForceMode.Impulse);
 
         Invoke(nameof(ResetJustDashed), 1);
@@ -153,11 +179,17 @@ public class UpdatedPlayerControlls : MonoBehaviour
 
         if (isSliding)
         {
-            if (!isGrounded) rb.AddForce(-transform.up * 15);
-            else if (isGrounded && justLanded) 
-            { 
+            if (!isGrounded)
+            {
+                if(!forceDownPlayed) { playerSource.PlayOneShot(forceDown); forceDownPlayed = true; }
+                rb.AddForce(-transform.up * 15);
+            }
+            else if (isGrounded && justLanded)
+            {
+                if (!sustainPlaying) { sustainSource.Play(); sustainPlaying = true; }
                 state = MoveState.slide;
                 justLanded = false;
+                forceDownPlayed = false;
                 playerHead.transform.localPosition = new Vector3(0, slideYHeight, 0);
             }
             else rb.AddForce(moveDirection.normalized * slideForce);
@@ -170,6 +202,8 @@ public class UpdatedPlayerControlls : MonoBehaviour
     {
         if (!isGrounded) return;
         spaceBeingHeld = true;
+        playerSource.pitch = Random.Range(0.8f, 1.1f);
+        playerSource.PlayOneShot(onJump);
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
