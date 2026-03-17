@@ -10,6 +10,8 @@ public class GameUIController : MonoBehaviour
 
     public void MainMenu()
     {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         SceneManager.LoadScene("MainMenu");
     }
 }

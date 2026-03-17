@@ -73,9 +73,12 @@ public class UpdatedPlayerControlls : MonoBehaviour
     private void Update()
     {
         // Player Movement
-        PlayerInput();
-        JumpPhysics();
-        SetStates();
+        if (RoundTimer.i.gamePlaying)
+        {
+            PlayerInput();
+            JumpPhysics();
+            SetStates();
+        }
 
         // Ground Check
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight, groundMask);

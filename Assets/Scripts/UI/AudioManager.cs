@@ -6,32 +6,35 @@ using TMPro;
 
 public class AudioManager : MonoBehaviour
 {
-    AudioManager m;
-
     public AudioMixer mixer;
     public Slider masterS;
-    public TMP_Text masterT;
     public Slider musicS;
     public Slider sfxS;
-    public TMP_Text sfxT;
 
 
-    private void Awake()
+    private void Start()
     {
-        if (m != null) Destroy(this);
-        else m = this;
+        masterS.value = PlayerPrefs.GetFloat("MasterVol", 1);
+        mixer.SetFloat("MasterVol", Mathf.Log10(masterS.value) * 20);
+        musicS.value = PlayerPrefs.GetFloat("MusicVol", 1);
+        mixer.SetFloat("MusicVol", Mathf.Log10(musicS.value) * 20);
+        sfxS.value = PlayerPrefs.GetFloat("SFXVol", 1);
+        mixer.SetFloat("SFXVol", Mathf.Log10(sfxS.value) * 20);
     }
 
     public void OnMasterChange()
     {
-        mixer.SetFloat("MasterVol", masterS.value);
+        mixer.SetFloat("MasterVol", Mathf.Log10(masterS.value) * 20);
+        PlayerPrefs.SetFloat("MasterVol", masterS.value);
     }
     public void OnMusicChange()
     {
-        mixer.SetFloat("MusicVol", musicS.value);
+        mixer.SetFloat("MusicVol", Mathf.Log10(musicS.value) * 20);
+        PlayerPrefs.SetFloat("MusicVol", musicS.value);
     }
     public void OnSFXChange()
     {
-        mixer.SetFloat("SFXVol", sfxS.value);
+        mixer.SetFloat("SFXVol", Mathf.Log10(sfxS.value) * 20);
+        PlayerPrefs.SetFloat("SFXVol", sfxS.value);
     }
 }

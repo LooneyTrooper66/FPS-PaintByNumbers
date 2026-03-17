@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.Audio;
 
 public class RoundTimer : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class RoundTimer : MonoBehaviour
     public GameObject gameEnd;
     public GameObject beforeStart;
     public GameObject roundStart;
-    public GameObject pauseMenu;
+    public PauseMenuManager pauseMenu;
     public GameObject mainUI;
     public float roundLengthInSeconds;
     float timeLeft;
@@ -19,6 +20,8 @@ public class RoundTimer : MonoBehaviour
     bool gameNotStarted;
     public Animator textAnim;
     bool animPlaying;
+    public AudioSource gameMusicSource;
+    public AudioSource pauseMusicSource;
 
     public GameObject gameEndCanvas;
     public string gameEndText;
@@ -37,7 +40,7 @@ public class RoundTimer : MonoBehaviour
         gameEnd.SetActive(false);
         beforeStart.SetActive(true);
         roundStart.SetActive(false);
-        pauseMenu.SetActive(false);
+        pauseMenu.CloseMenu();
         mainUI.SetActive(false);
         gamePlaying = false;
         gameEnded = false;
@@ -57,6 +60,7 @@ public class RoundTimer : MonoBehaviour
         timeLeft = roundLengthInSeconds;
         roundStart.SetActive(false);
         mainUI.SetActive(true);
+        gameMusicSource.Play();
         gamePlaying = true;
         gameNotStarted = false;
     }
@@ -67,8 +71,22 @@ public class RoundTimer : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (gameEnded || gameNotStarted) return;
-            if (gamePlaying) { gamePlaying = false; Time.timeScale = 0; pauseMenu.SetActive(true); }
-            else { gamePlaying = true; Time.timeScale = 1; pauseMenu.SetActive(false); }
+            if (gamePlaying) 
+            { 
+                gamePlaying = false; 
+                Time.timeScale = 0; 
+                pauseMenu.BackButton(); 
+                Cursor.lockState = CursorLockMode.Confined;
+                gameMusicSource.Pause(); pauseMusicSource.Play();
+            }
+            else 
+            { 
+                gamePlaying = true; 
+                Time.timeScale = 1; 
+                pauseMenu.CloseMenu(); 
+                Cursor.lockState = CursorLockMode.Locked; 
+                gameMusicSource.Play(); pauseMusicSource.Pause(); 
+            }
         }
 
         if (gamePlaying)
@@ -98,7 +116,7 @@ public class RoundTimer : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
-        pauseMenu.SetActive(false);
+        pauseMenu.CloseMenu();
         mainUI.SetActive(false);
         TMP_Text[] texts = gameEndCanvas.GetComponent<Canvas>().GetComponentsInChildren<TMP_Text>();
         texts[0].text = titleText;
