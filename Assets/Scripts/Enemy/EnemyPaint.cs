@@ -14,7 +14,11 @@ public class EnemyPaint : MonoBehaviour
     MeshRenderer explodeShell;
     Color halfWhite = new Vector4(1, 1, 1, 0.5f);
     float timeBeforeExplode = 3.5f;
-    float distToStartTimer = 10;
+    float distToStartTimer = 8;    
+    AudioSource enemySource;
+    public AudioClip explode;
+    public AudioClip[] fizzs;
+    bool fizzPlayed = false;
 
 
     private void Start()
@@ -25,11 +29,13 @@ public class EnemyPaint : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         Transform child = gameObject.transform.GetChild(0);
         explodeShell = child.GetComponent<MeshRenderer>();
+        enemySource = GetComponent<AudioSource>();
     }
 
     private void OnEnable() 
     { 
         explodeTimer = 0;
+        fizzPlayed = false;
     }
 
     private void FixedUpdate()
@@ -50,6 +56,15 @@ public class EnemyPaint : MonoBehaviour
         }
         else explodeShell.material.color = Color.clear;
 
+        // explode fizz sfx
+        if (explodeShell.material.color.a >= 0.4 && !fizzPlayed)
+        {
+            enemySource.pitch = Random.Range(0.8f, 1f);
+            enemySource.PlayOneShot(fizzs[Random.Range(0, 2)]);
+            fizzPlayed = true;
+        }
+        else if (explodeShell.material.color.a <= 0.2 && fizzPlayed) fizzPlayed = false;
+
         if (explodeTimer >= timeBeforeExplode) Explode(1.5f); // scale of paint bigger if explode instead of shot
     }
 
@@ -66,6 +81,9 @@ public class EnemyPaint : MonoBehaviour
         ParticleSystem ps = pS.GetComponent<ParticleSystem>();
         var main = ps.main;
         main.startColor = thisMat.color;
+        AudioSource particleSource = pS.GetComponent<AudioSource>();
+        particleSource.pitch = Random.Range(0.8f, 1.1f);
+        particleSource.PlayOneShot(explode);
         ps.Play();
     }
 

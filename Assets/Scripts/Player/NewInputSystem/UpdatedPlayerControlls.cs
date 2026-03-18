@@ -97,7 +97,7 @@ public class UpdatedPlayerControlls : MonoBehaviour
         if (justDashed || justLanded || state == MoveState.air) canSlide = true; else canSlide = false;
 
         // play footsteps
-        if (isRunning && isGrounded && state == MoveState.run)
+        if (isRunning && isGrounded && state == MoveState.run && RoundTimer.i.gamePlaying)
         {
             stepSoundTimer += Time.deltaTime;
             if (stepSoundTimer >= 0.25f)
