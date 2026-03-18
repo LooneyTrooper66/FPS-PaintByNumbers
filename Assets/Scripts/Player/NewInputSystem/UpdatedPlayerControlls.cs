@@ -57,9 +57,8 @@ public class UpdatedPlayerControlls : MonoBehaviour
     public AudioClip onLand;
     public AudioClip slideRelease;
     public AudioSource sustainSource;
-    float stepSoundPlayTimer;
     bool sustainPlaying = false;
-    bool forceDownPlayed = false;
+    float stepSoundTimer = 0;
 
 
     private void Awake() { rb = GetComponent<Rigidbody>(); thisGrav = GetComponent<ConstantForce>(); }
@@ -77,6 +76,8 @@ public class UpdatedPlayerControlls : MonoBehaviour
         inputActs.Player.Jump.performed += ctx => Jump();
         inputActs.Player.Jump.canceled += ctx => EndJump();
         inputActs.Player.Dash.performed += ctx => CheckCanDash();
+        inputActs.Player.Move.started += ctx => StartRunSFX();
+        inputActs.Player.Move.canceled += ctx => StopRunSFX();
     }
     private void OnDisable() => inputActs.Disable();
     #endregion
@@ -96,9 +97,15 @@ public class UpdatedPlayerControlls : MonoBehaviour
         if (justDashed || justLanded || state == MoveState.air) canSlide = true; else canSlide = false;
 
         // play footsteps
-        if (isRunning)
+        if (isRunning && isGrounded && state == MoveState.run)
         {
-
+            stepSoundTimer += Time.deltaTime;
+            if (stepSoundTimer >= 0.25f)
+            {
+                playerSource.pitch = Random.Range(0.9f, 1);
+                playerSource.PlayOneShot(footsteps[Random.Range(0, 2)]);
+                stepSoundTimer = 0;
+            }
         }
     }
     void PlayerInput()
@@ -118,7 +125,7 @@ public class UpdatedPlayerControlls : MonoBehaviour
             if (slideTimer <= maxSlideTime) Slide();
             else SetStateRun();
         }
-        else SetStateRun();
+        else if (!slideBeingHeld && state == MoveState.slide) SetStateRun(); 
     }
 
     #region // set states
@@ -128,17 +135,34 @@ public class UpdatedPlayerControlls : MonoBehaviour
         else if (isGrounded && isSliding && state != MoveState.slide) { state = MoveState.slide; justLanded = true; Invoke(nameof(ResetJustLanded), 1); }
         else if (isGrounded && state == MoveState.air) { state = MoveState.run; playerSource.PlayOneShot(onLand); justLanded = true; Invoke(nameof(ResetJustLanded), 1); }
     }
-    void SetStateRun() { state = MoveState.run; playerHead.transform.localPosition = new Vector3(0, startYHeight, 0); isSliding = false; slideTimer = 0; slideBeingHeld = false; }
+    void SetStateRun() 
+    { 
+        state = MoveState.run; 
+        playerHead.transform.localPosition = new Vector3(0, startYHeight, 0);
+        if (sustainPlaying)
+        {
+            sustainSource.Pause();
+            playerSource.pitch = 1;
+            playerSource.PlayOneShot(slideRelease);
+            sustainPlaying = false;
+        }
+        isSliding = false; slideTimer = 0; slideBeingHeld = false; 
+    }
     void ResetJustLanded() => justLanded = false;
-    void SlideHeld() => slideBeingHeld = true;
+    void SlideHeld() { slideBeingHeld = true; playerSource.PlayOneShot(forceDown); }
     void SlideReleased() 
     { 
         slideBeingHeld = false; 
-        sustainSource.Pause();
-        playerSource.pitch = 1;
-        playerSource.PlayOneShot(slideRelease); 
+        if (sustainPlaying)
+        {
+            sustainSource.Pause();
+            playerSource.pitch = 1;
+            playerSource.PlayOneShot(slideRelease);
+        }
         sustainPlaying = false; 
     }
+    void StartRunSFX() => isRunning = true;
+    void StopRunSFX() => isRunning = false;
     #endregion
 
     #region // run
@@ -175,21 +199,19 @@ public class UpdatedPlayerControlls : MonoBehaviour
     #region // slide
     void Slide()
     {
-        if (canSlide) isSliding = Physics.Raycast(transform.position, Vector3.down, 5, groundMask);
+        if (canSlide) isSliding = Physics.Raycast(transform.position, Vector3.down, 8, groundMask);
 
         if (isSliding)
         {
             if (!isGrounded)
             {
-                if(!forceDownPlayed) { playerSource.PlayOneShot(forceDown); forceDownPlayed = true; }
-                rb.AddForce(-transform.up * 15);
+                rb.AddForce(-transform.up * 30);
             }
             else if (isGrounded && justLanded)
             {
-                if (!sustainPlaying) { sustainSource.Play(); sustainPlaying = true; }
+                if (!sustainPlaying) { playerSource.PlayOneShot(onLand); sustainSource.Play(); sustainPlaying = true; }
                 state = MoveState.slide;
                 justLanded = false;
-                forceDownPlayed = false;
                 playerHead.transform.localPosition = new Vector3(0, slideYHeight, 0);
             }
             else rb.AddForce(moveDirection.normalized * slideForce);

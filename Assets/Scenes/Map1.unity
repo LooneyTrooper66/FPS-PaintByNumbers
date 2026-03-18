@@ -3970,11 +3970,10 @@ MonoBehaviour:
   state: 0
   playerSource: {fileID: 562792561}
   footsteps:
-  - {fileID: 8300000, guid: e7e054cf854f58e468413f5090a7c9d2, type: 3}
-  - {fileID: 8300000, guid: 191e1ff7a92920746bb8c13fde5681c8, type: 3}
-  - {fileID: 8300000, guid: 1cbc660c148b2d946916132dfee50eb9, type: 3}
+  - {fileID: 8300000, guid: bf184a476daed414099df5439499aa5e, type: 3}
+  - {fileID: 8300000, guid: 08b2d91a50c0a454dbcb65097842fddf, type: 3}
   onJump: {fileID: 8300000, guid: e152aeb309620d1499052375c6b91092, type: 3}
-  forceDown: {fileID: 8300000, guid: 64c88c0f9cc78f5438d63f2e7d6e7ac9, type: 3}
+  forceDown: {fileID: 8300000, guid: df9cb246497129a408a909f91ae3928e, type: 3}
   onLand: {fileID: 8300000, guid: 96690334c5f22e840a265b189a52f379, type: 3}
   slideRelease: {fileID: 8300000, guid: fe94301aad8520447a8d0b3f42d3571f, type: 3}
   sustainSource: {fileID: 562792562}
