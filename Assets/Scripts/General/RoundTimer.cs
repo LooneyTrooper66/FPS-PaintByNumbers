@@ -22,6 +22,8 @@ public class RoundTimer : MonoBehaviour
     bool animPlaying;
     public AudioSource gameMusicSource;
     public AudioSource pauseMusicSource;
+    public AudioSource playerSource;
+    public AudioClip countdownBeeps;
 
     public GameObject gameEndCanvas;
     public string gameEndText;
@@ -52,11 +54,12 @@ public class RoundTimer : MonoBehaviour
     public void StartButton() => StartCoroutine(GameCountdown());
     IEnumerator GameCountdown()
     {
+        playerSource.PlayOneShot(countdownBeeps);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         beforeStart.SetActive(false);
         roundStart.SetActive(true);
-        yield return new WaitForSecondsRealtime(3.5f);
+        yield return new WaitForSecondsRealtime(4.4f);
         timeLeft = roundLengthInSeconds;
         roundStart.SetActive(false);
         mainUI.SetActive(true);

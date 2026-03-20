@@ -1851,7 +1851,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 130}
+  m_AnchoredPosition: {x: 0, y: -60}
   m_SizeDelta: {x: 300, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &317477384
@@ -2132,6 +2132,8 @@ MonoBehaviour:
   textAnim: {fileID: 139731583}
   gameMusicSource: {fileID: 336171876}
   pauseMusicSource: {fileID: 336171877}
+  playerSource: {fileID: 562792561}
+  countdownBeeps: {fileID: 8300000, guid: 1826f997b0fdab14f822254405acabd3, type: 3}
   gameEndCanvas: {fileID: 417808460}
   gameEndText: Times Up!
 --- !u!114 &336171873
@@ -13251,7 +13253,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -60}
+  m_AnchoredPosition: {x: 0, y: 130}
   m_SizeDelta: {x: 300, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1548860848
