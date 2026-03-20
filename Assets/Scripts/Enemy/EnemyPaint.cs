@@ -59,7 +59,7 @@ public class EnemyPaint : MonoBehaviour
         // explode fizz sfx
         if (explodeShell.material.color.a >= 0.4 && !fizzPlayed)
         {
-            enemySource.pitch = Random.Range(0.8f, 1f);
+            enemySource.pitch = Random.Range(0.7f, 1.1f);
             enemySource.PlayOneShot(fizzs[Random.Range(0, 2)]);
             fizzPlayed = true;
         }
@@ -82,7 +82,7 @@ public class EnemyPaint : MonoBehaviour
         var main = ps.main;
         main.startColor = thisMat.color;
         AudioSource particleSource = pS.GetComponent<AudioSource>();
-        particleSource.pitch = Random.Range(0.8f, 1.1f);
+        particleSource.pitch = Random.Range(0.7f, 1.1f);
         particleSource.PlayOneShot(explode);
         ps.Play();
     }
