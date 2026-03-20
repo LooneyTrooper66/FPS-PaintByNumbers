@@ -4144,7 +4144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runSpeed: 30
   slideSpeed: 40
-  dashForce: 40
+  dashForce: 50
   slideForce: 20
   playerHead: {fileID: 1242783197}
   jumpForce: 15
