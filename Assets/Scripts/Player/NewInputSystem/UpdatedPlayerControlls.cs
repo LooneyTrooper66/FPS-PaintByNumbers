@@ -11,7 +11,7 @@ public class UpdatedPlayerControlls : MonoBehaviour
     float moveSpeed;
     InputSystem_Actions inputActs;
     Vector3 moveDirection;
-    [SerializeField] float dashForce = 20;
+    [SerializeField] float dashForce = 50;
     bool canDash = true;
     bool justDashed = false;
     float dashCooldown = 1;

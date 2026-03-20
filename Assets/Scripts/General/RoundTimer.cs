@@ -24,6 +24,8 @@ public class RoundTimer : MonoBehaviour
     public AudioSource pauseMusicSource;
     public AudioSource playerSource;
     public AudioClip countdownBeeps;
+    public AudioClip timerEndingBeeps;
+    bool timerBeepsPlayed = false;
 
     public GameObject gameEndCanvas;
     public string gameEndText;
@@ -34,6 +36,7 @@ public class RoundTimer : MonoBehaviour
         if (i != null) Destroy(this);
         else i = this;
         animPlaying = false;
+        timerBeepsPlayed = false;
     }
 
     private void Start()
@@ -98,10 +101,11 @@ public class RoundTimer : MonoBehaviour
             UpdateTimer();
             if (timeLeft < 0)
             {
-                gamePlaying = false; 
+                gamePlaying = false;
                 gameEnded = true;
                 TimerEndedScreen(gameEndText);
             }
+            else if (timeLeft <= 6 && !timerBeepsPlayed) { playerSource.PlayOneShot(timerEndingBeeps); timerBeepsPlayed = true; }
             else if (timeLeft <= 11 && !animPlaying) { animPlaying = true; textAnim.SetTrigger("5SecsLeft"); }
         }
     }
