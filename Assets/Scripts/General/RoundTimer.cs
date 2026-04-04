@@ -81,8 +81,9 @@ public class RoundTimer : MonoBehaviour
             { 
                 gamePlaying = false; 
                 Time.timeScale = 0; 
-                pauseMenu.BackButton(); 
+                pauseMenu.BackButton();
                 Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
                 gameMusicSource.Pause(); pauseMusicSource.Play();
             }
             else 
@@ -90,7 +91,8 @@ public class RoundTimer : MonoBehaviour
                 gamePlaying = true; 
                 Time.timeScale = 1; 
                 pauseMenu.CloseMenu(); 
-                Cursor.lockState = CursorLockMode.Locked; 
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 gameMusicSource.Play(); pauseMusicSource.Pause(); 
             }
         }

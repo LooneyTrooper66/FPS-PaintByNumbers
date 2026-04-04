@@ -511,10 +511,10 @@ MonoBehaviour:
   paintDecal: {fileID: 6222644359048192109, guid: 342f78c5407754b4a913a86ac1e61f9b, type: 3}
   poolTag: Particles
   colourNum: 1
-  explode: {fileID: 8300000, guid: 6bf6728343af341408c27ee3e6d9c531, type: 3}
+  explode: {fileID: 8300000, guid: c02334009a5f9c348b5ea670f6c62880, type: 3}
   fizzs:
-  - {fileID: 8300000, guid: cfb62f58e44293f4388f21821cd80e0e, type: 3}
-  - {fileID: 8300000, guid: 8efc6a909a722cb40a50fec2dbe5f3d5, type: 3}
+  - {fileID: 8300000, guid: e6870170e4889a74ead5b7868c6c7502, type: 3}
+  - {fileID: 8300000, guid: b433433a84b127a419badad0eb910631, type: 3}
 --- !u!82 &811514862347095435
 AudioSource:
   m_ObjectHideFlags: 0
@@ -524,11 +524,11 @@ AudioSource:
   m_GameObject: {fileID: 8206007003141806534}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 5251702239585218656, guid: a3b93e1b7713a0342b667a122148fb69, type: 2}
+  OutputAudioMixerGroup: {fileID: 5251702239585218656, guid: 53795f97fdf2fa840bad7ae58d231c42, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
